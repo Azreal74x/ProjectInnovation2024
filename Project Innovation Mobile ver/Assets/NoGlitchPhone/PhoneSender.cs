@@ -9,11 +9,13 @@ using TMPro;
 public class PhoneSender : MonoBehaviour {
   //MOBILE
 
-  private const int port = 8089;
+  private const int port = 9089;
   public string messageToSend = null;
   public TMP_InputField text;
   private UdpClient client = new UdpClient();
   private string targetIP = null;
+
+  public TextMeshProUGUI debugText;
 
   private void Start() {
     if (SystemInfo.supportsGyroscope) { //check if device has gyroscope
@@ -22,6 +24,8 @@ public class PhoneSender : MonoBehaviour {
     else {
       //Debug.Log("Gyroscope not supported"); //message if not gyroscope supported
     }
+
+    debugText.text = "started phone sender script";
   }
 
   public void SetIP(string ip) {
@@ -47,6 +51,7 @@ public class PhoneSender : MonoBehaviour {
       string message = "IP:" + targetIP; 
       byte[] bytes = Encoding.ASCII.GetBytes(message);
       SendToTarget(bytes);
+      debugText.text = "IP SENT TO PC";
     }
   }
 
@@ -60,11 +65,13 @@ public class PhoneSender : MonoBehaviour {
   }
 
   private void SendAccelerationData() {
-    Vector3 acceleration = Input.acceleration;
-    float sqrMagnitude = acceleration.sqrMagnitude; // Calculate squared magnitude
-    string accelerationData = "ACCEL:" + sqrMagnitude.ToString();
-    byte[] bytes = Encoding.ASCII.GetBytes(accelerationData);
-    SendToTarget(bytes);
+    if (Input.gyro.enabled) {
+      Vector3 acceleration = Input.acceleration;
+      float sqrMagnitude = acceleration.sqrMagnitude; // Calculate squared magnitude
+      string accelerationData = "ACCEL:" + sqrMagnitude.ToString();
+      byte[] bytes = Encoding.ASCII.GetBytes(accelerationData);
+      SendToTarget(bytes);
+    }
   }
   string QuaternionToString(Quaternion q) {
     return $"{q.x},{q.y},{q.z},{q.w}";

@@ -26,7 +26,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/TestingScene/RoomPourPotion.unity
     guid: e18aabcdacbc7674dbe1e36d979de55a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/new new folder/NewBetaScene.unity
     guid: 2a24fb91d02851840aed651738658b0b
+  - enabled: 1
+    path: Assets/Scenes/FinalScene/FinalScene.unity
+    guid: 2d63654cf1ded324da30d651fd12828f
   m_configObjects: {}

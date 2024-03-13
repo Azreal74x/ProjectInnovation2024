@@ -55,9 +55,9 @@ public class KeyUDP : MonoBehaviour {
     }
     CheckPhone();
 
-    if (key) {
+    //if (key) {
       GyroCheck();
-    }
+    //}
     Debug.Log("key? " + key);
   }
 
