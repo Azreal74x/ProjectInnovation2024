@@ -1026,7 +1026,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 18
   m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3577,7 +3577,8 @@ MonoBehaviour:
   ipv4: {fileID: 465451437}
   inventoryController: {fileID: 841463974}
   setIP: 0
-  ScreenIP: {fileID: 394230072}
+  screenIP: {fileID: 394230072}
+  senderListener: {fileID: 527670748}
 --- !u!1 &2097399583
 GameObject:
   m_ObjectHideFlags: 0

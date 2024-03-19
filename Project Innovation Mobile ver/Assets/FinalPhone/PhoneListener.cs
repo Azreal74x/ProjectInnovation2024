@@ -13,10 +13,13 @@ public class PhoneListener : MonoBehaviour {
   private string currentIP;
 
   [SerializeField] private GameObject inventoryController;
-  private Inventory inventory ; //cache component
+  private Inventory inventory; //cache component
 
   public bool setIP = false;
-  [SerializeField] private GameObject ScreenIP;
+  [SerializeField] private GameObject screenIP;
+
+  private PhoneSender phoneSender;
+  [SerializeField] private GameObject senderListener;
 
   private void Start() {
     client = new UdpClient(55550);
@@ -24,11 +27,16 @@ public class PhoneListener : MonoBehaviour {
     GetLocalIPAddress();
 
     inventory = inventoryController.GetComponent<Inventory>();
+    phoneSender = senderListener.GetComponent<PhoneSender>();
   }
 
   // Update is called once per frame
   void Update() {
     ReceiveData();
+
+    if (setIP && phoneSender.targetIPSet) {
+      screenIP.SetActive(false);
+    }
   }
 
   void ReceiveData() {
@@ -36,18 +44,18 @@ public class PhoneListener : MonoBehaviour {
       byte[] inBytes = client.Receive(ref endPoint);
       string inString = Encoding.UTF8.GetString(inBytes);
 
-      if (inString.StartsWith("IP:")) {
-        Debug.Log($"Received IP: {inString.Substring(3)} from {endPoint}");
-        string receivedIP = inString.Substring(3).Trim();
+      if (inString.StartsWith("PC_IP:")) {
+        Debug.Log($"Received IP: {inString.Substring(6)} from {endPoint}");
+        string receivedIP = inString.Substring(6).Trim();
         ipv4.text = receivedIP;
         if (receivedIP == currentIP) {
           ipv4.text = " ";
           setIP = true;
-          //ScreenIP.SetActive(false);
+
         }
         else {
-          Debug.Log("Try again");
-          //ScreenIP.SetActive(true);
+          Debug.Log("Try again, receivedIP is: " + receivedIP + " but the current IP is: " + currentIP);
+          //screenIP.SetActive(true);
         }
       }
       else if (inString.StartsWith("ITEM:")) {
@@ -57,7 +65,7 @@ public class PhoneListener : MonoBehaviour {
           Debug.Log($"Received Item: {receivedItem} from {endPoint}");
         }
       }
-      
+
     }
   }
 
