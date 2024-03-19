@@ -20,7 +20,7 @@ public class PcListener : MonoBehaviour {
   public TextMeshProUGUI debugText;
 
   private void Start() {
-    client = new UdpClient(9089);
+    client = new UdpClient(55551);
     endPoint = new IPEndPoint(IPAddress.Any, 0);
     LogLocalIPAddress();
 

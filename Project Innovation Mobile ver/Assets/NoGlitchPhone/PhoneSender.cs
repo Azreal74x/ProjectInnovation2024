@@ -9,7 +9,7 @@ using TMPro;
 public class PhoneSender : MonoBehaviour {
   //MOBILE
 
-  private const int port = 9089;
+  //private const int port = 55551;
   public string messageToSend = null;
   public TMP_InputField text;
   private UdpClient client = new UdpClient(); //put here the port ?
@@ -18,6 +18,8 @@ public class PhoneSender : MonoBehaviour {
   public TextMeshProUGUI debugText;
 
   private void Start() {
+    client = new UdpClient(55551);
+
     if (SystemInfo.supportsGyroscope) { //check if device has gyroscope
       Input.gyro.enabled = true; //enable use of gyroscope
     }
@@ -35,7 +37,7 @@ public class PhoneSender : MonoBehaviour {
 
   private void SendToTarget(byte[] packet) {
     if (!string.IsNullOrEmpty(targetIP)) { // Make sure the target IP is not null or empty
-      client.Send(packet, packet.Length, targetIP, port);
+      client.Send(packet, packet.Length, targetIP, ((IPEndPoint)client.Client.LocalEndPoint).Port);
     }
   }
 

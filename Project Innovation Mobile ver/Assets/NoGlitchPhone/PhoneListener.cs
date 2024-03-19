@@ -18,7 +18,7 @@ public class PhoneListener : MonoBehaviour {
   public bool setIP = false;
 
   private void Start() {
-    client = new UdpClient(8089);
+    client = new UdpClient(55550);
     endPoint = new IPEndPoint(IPAddress.Any, 0);
     GetLocalIPAddress();
 
