@@ -17,14 +17,12 @@ public class PcListener : MonoBehaviour {
   [SerializeField] private TextMeshProUGUI ipv4;
   private string currentIP;
 
-  public TextMeshProUGUI debugText;
+  [SerializeField] private GameObject ScreenIP;
 
   private void Start() {
     client = new UdpClient(55551);
     endPoint = new IPEndPoint(IPAddress.Any, 0);
     LogLocalIPAddress();
-
-    //debugText.text = "Pc Listener started";
   }
 
   private void Update() {
@@ -48,19 +46,16 @@ public class PcListener : MonoBehaviour {
       byte[] inBytes = client.Receive(ref endPoint);
       string inString = Encoding.UTF8.GetString(inBytes);
 
-      
-
       if (inString.StartsWith("IP:")) {
         Debug.Log($"Received IP: {inString.Substring(3)} from {endPoint}");
-        //debugText.text = "I received DATA: " + inString;
         string receivedIP = inString.Substring(3).Trim();
-        //debugText.text = "DATA IS IP ADDRESS AND  RECEIVED IP IS " + receivedIP + " AND CURRENT IP IS " + currentIP;
         if (receivedIP == currentIP) {
           ipv4.text = " ";
-          //debugText.text = "IP ADDRESS IS CORRECT AKA: " + receivedIP + " IS THE SAME AS " + currentIP;
+          //ScreenIP.SetActive(false);
         }
         else {
           Debug.Log("Try again");
+          //ScreenIP.SetActive(true);
         }
       }
       else if (inString.StartsWith("GYRO:")) {

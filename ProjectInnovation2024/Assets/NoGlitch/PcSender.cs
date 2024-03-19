@@ -6,7 +6,6 @@ using TMPro;
 
 public class PcSender : MonoBehaviour {
 
-  //public int port = 55550;
   public string messageToSend = null;
   public TMP_InputField text;
   private UdpClient client;
@@ -14,10 +13,10 @@ public class PcSender : MonoBehaviour {
 
   private void Start() {
     client = new UdpClient(55550);
-    Debug.Log( client); //  
+    /*Debug.Log( client); //  
     Debug.Log(client.Client); //  
     Debug.Log(client.Client.LocalEndPoint); //  
-    Debug.Log(((IPEndPoint) client.Client.LocalEndPoint).Port); //  
+    Debug.Log(((IPEndPoint) client.Client.LocalEndPoint).Port); //  */
   }
 
   public void SetIP(string ip) {

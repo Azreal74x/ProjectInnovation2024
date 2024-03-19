@@ -1147,7 +1147,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &255988303
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2871,6 +2871,10 @@ PrefabInstance:
       propertyPath: ipv4
       value: 
       objectReference: {fileID: 749579164}
+    - target: {fileID: 5791371582469025196, guid: 9a939fc74598d6742a717719c44278f7, type: 3}
+      propertyPath: ScreenIP
+      value: 
+      objectReference: {fileID: 1341743873}
     - target: {fileID: 5791371582469025196, guid: 9a939fc74598d6742a717719c44278f7, type: 3}
       propertyPath: debugText
       value: 
