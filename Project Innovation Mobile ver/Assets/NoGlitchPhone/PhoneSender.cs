@@ -12,7 +12,7 @@ public class PhoneSender : MonoBehaviour {
   private const int port = 9089;
   public string messageToSend = null;
   public TMP_InputField text;
-  private UdpClient client = new UdpClient();
+  private UdpClient client = new UdpClient(); //put here the port ?
   private string targetIP = null;
 
   public TextMeshProUGUI debugText;

@@ -6,13 +6,21 @@ using TMPro; // Make sure to include the TMPro namespace for access to TMP_Input
 
 public class PcSender : MonoBehaviour {
 
-  public int port = 8089;
+  public int port = 7087;
   public string messageToSend = null;
   public TMP_InputField text;
   private UdpClient client = new UdpClient();
   private string targetIP = null;
 
-  public void SetIP(string ip) {
+    private void Start()
+    {
+        /*Debug.Log( client); //  
+        Debug.Log(client.Client); //  
+        Debug.Log(client.Client.LocalEndPoint); //  
+        Debug.Log(((IPEndPoint) client.Client.LocalEndPoint).Port); //  */
+    }
+
+    public void SetIP(string ip) {
     targetIP = text.text;
     SendIP();
   }

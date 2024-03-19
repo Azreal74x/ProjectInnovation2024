@@ -4815,8 +4815,6 @@ MonoBehaviour:
   maxPhoneRotationX: 320
   minUVAngleY: 60
   maxUVAngleY: 255
-  hiddenImage: {fileID: 21300000, guid: e7908f9cb9dbc4d4d817644c0fab4aa0, type: 3}
-  normalImage: {fileID: 21300000, guid: c941dff14a39350409c6fb5b5757cff7, type: 3}
   discovered: 0
   debugText: {fileID: 255988304}
 --- !u!1 &1497818052

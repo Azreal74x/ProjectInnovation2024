@@ -63,8 +63,9 @@ public class PourPotionUDP : MonoBehaviour {
     if (currentGyroData != previousGyroData) { //only update when the value changes
 
       Quaternion correctedOrientation = currentGyroData * calibration.initialOrientation; //apply the calibration offset to the current orientation
+            // initial orientation on the left if u wanna ctually invert it
       Vector3 gyroRotation = correctedOrientation.eulerAngles; // Use corrected orientation
-
+            //Quaternion.angle !!!
       if (calibration.iphone) {
         if (gyroRotation.x > minPhoneRotationX || gyroRotation.x < maxPhoneRotationX) { //check we are pouring within the phone upright position within the x range
           Vector3 spriteRotation = new Vector3(0, 0, -gyroRotation.y);  // IPHONE
