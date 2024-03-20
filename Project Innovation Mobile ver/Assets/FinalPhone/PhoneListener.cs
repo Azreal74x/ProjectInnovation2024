@@ -28,8 +28,6 @@ public class PhoneListener : MonoBehaviour {
 
     inventory = inventoryController.GetComponent<Inventory>();
     phoneSender = senderListener.GetComponent<PhoneSender>();
-
-    Debug.Log("phone is listening");
   }
 
   // Update is called once per frame
@@ -45,7 +43,6 @@ public class PhoneListener : MonoBehaviour {
     while (client.Available > 0) {
       byte[] inBytes = client.Receive(ref endPoint);
       string inString = Encoding.UTF8.GetString(inBytes);
-      Debug.Log("inString: " + inString);
       if (inString.StartsWith("PC_IP:")) {
         Debug.Log($"Received IP: {inString.Substring(6)} from {endPoint}");
         string receivedIP = inString.Substring(6).Trim();
@@ -53,7 +50,6 @@ public class PhoneListener : MonoBehaviour {
         if (receivedIP == currentIP) {
           ipv4.text = " ";
           setIP = true;
-          Debug.Log("received ip is current ip");
         }
         else {
           Debug.Log("Try again, receivedIP is: " + receivedIP + " but the current IP is: " + currentIP);

@@ -24,7 +24,6 @@ public class PcSender : MonoBehaviour {
   public void SetIP(string ip) {
     targetIP = text.text;
     targetIPSet = true;
-    Debug.Log("send ip");
     SendIP();
   }
 
