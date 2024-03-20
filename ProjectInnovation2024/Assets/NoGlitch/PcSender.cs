@@ -11,6 +11,8 @@ public class PcSender : MonoBehaviour {
   private UdpClient client;
   private string targetIP = null;
 
+  public bool targetIPSet = false;
+
   private void Start() {
     client = new UdpClient(55550);
     /*Debug.Log( client); //  
@@ -21,6 +23,7 @@ public class PcSender : MonoBehaviour {
 
   public void SetIP(string ip) {
     targetIP = text.text;
+    targetIPSet = true;
     SendIP();
   }
 
@@ -38,7 +41,7 @@ public class PcSender : MonoBehaviour {
 
   private void SendIP() {
     if (!string.IsNullOrEmpty(targetIP)) {
-      string message = "IP:" + targetIP;
+      string message = "PC_IP:" + targetIP;
       byte[] bytes = Encoding.ASCII.GetBytes(message);
       SendToTarget(bytes);
     }

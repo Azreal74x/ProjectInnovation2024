@@ -15,6 +15,8 @@ public class PhoneSender : MonoBehaviour {
   private UdpClient client = new UdpClient(); //put here the port ?
   private string targetIP = null;
 
+  public bool targetIPSet = false;
+
   private void Start() {
     client = new UdpClient(55551);
 
@@ -29,6 +31,7 @@ public class PhoneSender : MonoBehaviour {
 
   public void SetIP(string ip) {
     targetIP = text.text;
+    targetIPSet = true;
     SendIP();
   }
 
@@ -47,7 +50,7 @@ public class PhoneSender : MonoBehaviour {
 
   private void SendIP() {
     if (!string.IsNullOrEmpty(targetIP)) {
-      string message = "IP:" + targetIP; 
+      string message = "PHONE_IP:" + targetIP; 
       byte[] bytes = Encoding.ASCII.GetBytes(message);
       SendToTarget(bytes);
       Debug.Log("IP SENT TO PC");

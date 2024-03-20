@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using TMPro;
+using UnityEngine.Device;
 
 public class PcListener : MonoBehaviour {
 
@@ -17,16 +18,26 @@ public class PcListener : MonoBehaviour {
   [SerializeField] private TextMeshProUGUI ipv4;
   private string currentIP;
 
-  [SerializeField] private GameObject ScreenIP;
+  [SerializeField] private GameObject screenIP;
+
+  private PcSender pcSender;
+  [SerializeField] private GameObject senderListener;
+  private bool setIP = false;
 
   private void Start() {
     client = new UdpClient(55551);
     endPoint = new IPEndPoint(IPAddress.Any, 0);
     LogLocalIPAddress();
+
+    pcSender = senderListener.GetComponent<PcSender>();
   }
 
   private void Update() {
     ReceiveData();
+
+    if (setIP && pcSender.targetIPSet) {
+      screenIP.SetActive(false);
+    }
   }
 
   private void LogLocalIPAddress() {
@@ -46,15 +57,16 @@ public class PcListener : MonoBehaviour {
       byte[] inBytes = client.Receive(ref endPoint);
       string inString = Encoding.UTF8.GetString(inBytes);
 
-      if (inString.StartsWith("IP:")) {
-        Debug.Log($"Received IP: {inString.Substring(3)} from {endPoint}");
-        string receivedIP = inString.Substring(3).Trim();
+      if (inString.StartsWith("PHONE_IP:")) {
+        Debug.Log($"Received IP: {inString.Substring(9)} from {endPoint}");
+        string receivedIP = inString.Substring(9).Trim();
         if (receivedIP == currentIP) {
           ipv4.text = " ";
-          //ScreenIP.SetActive(false);
+          setIP = true;
+
         }
         else {
-          Debug.Log("Try again");
+          Debug.Log("Try again, receivedIP is: " + receivedIP + " but the current IP is: " + currentIP);
           //ScreenIP.SetActive(true);
         }
       }
