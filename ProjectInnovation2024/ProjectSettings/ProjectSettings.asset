@@ -162,6 +162,8 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.DefaultCompany.ProjectInnovation2024
+    Standalone: com.DefaultCompany.ProjectInnovation2024
+    iPhone: com.DefaultCompany.ProjectInnovation2024
   buildNumber:
     Standalone: 0
     VisionOS: 0
@@ -776,7 +778,7 @@ PlayerSettings:
   incrementalIl2cppBuild: {}
   suppressCommonWarnings: 1
   allowUnsafeCode: 0
-  useDeterministicCompilation: 1
+  useDeterministicCompilation: 0
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
   gcIncremental: 1
