@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Hammer : MonoBehaviour
 {
+    [SerializeField] private GameObject explosion; 
 
     private int swingCount = 0;
     private bool check = false;
@@ -25,8 +26,21 @@ public class Hammer : MonoBehaviour
         if (!check && swingCount >= 10)
         {
             Debug.Log("glass broken");
+            explosion.SetActive(true);
             check = true;
         }
+    }
+
+    public void TurnOff()
+    {
+        this.gameObject.SetActive(false);
+
+    }
+
+    public void TurnOn()
+    {
+        this.gameObject.SetActive(true);
+
     }
 
 }

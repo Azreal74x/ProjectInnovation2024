@@ -11,6 +11,7 @@ public class UVLight : MonoBehaviour
     [SerializeField] private float maxUVAngleY = 255; //maximum right when faced away
 
     [SerializeField] private GameObject textBox;
+    [SerializeField] private GameObject bigPaper;
 
     private Quaternion initialOrientation;
     private bool isCalibrated = false;
@@ -28,6 +29,7 @@ public class UVLight : MonoBehaviour
         }
 
         GyroCheck();
+
     }
 
     private void CalibrateGyro()
@@ -55,4 +57,18 @@ public class UVLight : MonoBehaviour
             textBox.SetActive(false); //hide secret text if wrong gyro phone rotation
         }
     }
+
+
+    public void TurnOff()
+    {
+        this.gameObject.SetActive(false);
+
+    }
+
+    public void TurnOn()
+    {
+        this.gameObject.SetActive(true);
+
+    }
+
 }

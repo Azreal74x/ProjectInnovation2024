@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class KeyUDP : MonoBehaviour {
-  [SerializeField] private GameObject senderListener;
+  [SerializeField] private string item = "Key"; //has to be name of the item in the inventory
 
+  [SerializeField] private GameObject senderListener;
   private PcListener pcListener; //cache component
 
   [SerializeField] private GameObject calibrationController;
@@ -20,6 +21,10 @@ public class KeyUDP : MonoBehaviour {
   [SerializeField] private float minTurnAngleZ;
   [SerializeField] private float maxTurnAngleZ;
 
+  [SerializeField] private GameObject door;
+  [SerializeField] private Sprite doorOpen;
+
+  private bool key = false;
   private bool didBoom = false;
 
   private void Start() {
@@ -49,7 +54,11 @@ public class KeyUDP : MonoBehaviour {
       return;
     }
     CheckPhone();
-    GyroCheck();
+
+    //if (key) {
+      GyroCheck();
+    //}
+    Debug.Log("key? " + key);
   }
 
   private void GyroCheck() {
@@ -80,6 +89,7 @@ public class KeyUDP : MonoBehaviour {
   private void ExplosionAndOpenDoor() {
     if (!didBoom) {
       Debug.Log("Boom");
+      door.GetComponent<SpriteRenderer>().sprite = doorOpen;
     }
     didBoom = true;
   }
@@ -98,4 +108,10 @@ public class KeyUDP : MonoBehaviour {
       maxTurnAngleZ = 180f;
     }
   }
+
+  public void KeyPicked() {
+    key = true;
+
+  }
+
 }

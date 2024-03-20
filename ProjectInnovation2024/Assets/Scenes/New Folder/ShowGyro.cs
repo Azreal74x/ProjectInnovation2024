@@ -9,7 +9,7 @@ public class GetGyroData : MonoBehaviour
 
     [SerializeField] private GameObject senderListener;
 
-    [SerializeField] private TextMeshProUGUI textBox; //for testing
+    [SerializeField] private TextMeshProUGUI hiddenImage; //for testing
 
     private Vector3 gyroData;
     private string messageReceived;
@@ -45,7 +45,7 @@ public class GetGyroData : MonoBehaviour
         UDPListener listener = senderListener.GetComponent<UDPListener>();
         this.messageReceived = listener.messageReceived;
 
-        textBox.text = messageReceived;
+        hiddenImage.text = messageReceived;
 
         string[] gyroDataParts = messageReceived.Split(',');
         Debug.Log(gyroDataParts);

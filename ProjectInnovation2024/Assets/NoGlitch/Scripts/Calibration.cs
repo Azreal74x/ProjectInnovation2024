@@ -1,58 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Calibration : MonoBehaviour
-{
+public class Calibration : MonoBehaviour {
   [SerializeField] private GameObject senderListener;
-  //private Quaternion gyroData;
-
   private PcListener pcListener; //cache component
+
+  [SerializeField] private GameObject calibrationScreen;
 
   public Quaternion initialOrientation;
   public bool isCalibrated = false;
   public bool iphone = false;
+  private bool choseVersion = false;
 
-  [SerializeField] private Outline outline;
-  private Color failColor = Color.red;
-  private Color succesColor = Color.green;
-
+  public TextMeshProUGUI debugText;
 
   private void Start() {
     if (SystemInfo.supportsGyroscope) { //check if device has gyroscope
       Input.gyro.enabled = true; //enable use of gyroscope
     }
-    else {
-      //Debug.Log("Gyroscope not supported"); //message if not supported
-    }
 
-    if (senderListener != null) {
-      pcListener = senderListener.GetComponent<PcListener>();
-    }
+    pcListener = senderListener.GetComponent<PcListener>();
   }
 
   private void Update() {
-    if (!isCalibrated) {
-      outline.effectColor = failColor;
-      return;
-    }
-    else {
-      outline.effectColor = succesColor;
-    }
-  }
-
-  public void CalibrateGyro() {
-    Quaternion currentGyroData = pcListener.gyroQuaternion;
-    initialOrientation = Quaternion.Inverse(currentGyroData);
-    isCalibrated = true;
+    //debugText.text = initialOrientation.ToString(); 
   }
 
   public void IsIphone() {
     iphone = true;
+    choseVersion = true;
   }
 
   public void IsAndroid() {
     iphone = false;
+    choseVersion = true;
+  }
+
+  public void CalibrateGyro() {
+    Quaternion currentGyroData = pcListener.gyroQuaternion; //get current phone gyro input from pcListener
+    initialOrientation = Quaternion.Inverse(currentGyroData); //inverse it and set the initialOrientation for further use
+    isCalibrated = true; //confirm calibration
+    calibrationScreen.SetActive(false);
+    Debug.Log("Calibrated GyroScope");
+  }
+
+  public void TurnOnCalibration() {
+    calibrationScreen.SetActive(true);
   }
 }
