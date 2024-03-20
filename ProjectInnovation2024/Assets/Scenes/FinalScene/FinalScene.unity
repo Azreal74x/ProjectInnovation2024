@@ -412,11 +412,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26cd477ec91c65743ac82795435fe353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: SulfuricAcid
+  item: PotionNew
   senderListener: {fileID: 857211991}
-  sideRoomButton: {fileID: 770312319}
+  sideRoomButton: {fileID: 0}
   explosion: 0
-  ExplodedDoor: {fileID: 89157351}
+  ExplodedDoor: {fileID: 0}
 --- !u!1 &47534926
 GameObject:
   m_ObjectHideFlags: 0
@@ -905,7 +905,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   senderListener: {fileID: 857211991}
-  item: PotionFirst
+  item: Water
   secondItem: Sulfer
   newPotion: 0
   calibrationController: {fileID: 90888576}
@@ -1720,14 +1720,7 @@ MonoBehaviour:
   - {fileID: 623737884}
   - {fileID: 382758484}
   - {fileID: 1056793015}
-  spritesToFade:
-  - {fileID: 912603178}
-  - {fileID: 1139212364}
-  - {fileID: 904185336}
-  - {fileID: 574512643}
-  - {fileID: 2137428780}
-  - {fileID: 664686717}
-  - {fileID: 34090929}
+  spritesToFade: []
   leftArrowButton: {fileID: 47534926}
   rightArrowButton: {fileID: 1572938507}
   downArrowButton: {fileID: 1831715270}
@@ -2405,7 +2398,7 @@ MonoBehaviour:
   potionObj: {fileID: 1658451676}
   potion: 0
   brokenGlass: {fileID: 25979636}
-  otherGlass: {fileID: 2088953001}
+  otherGlass: {fileID: 0}
 --- !u!1 &704810998
 GameObject:
   m_ObjectHideFlags: 0
@@ -2936,17 +2929,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a939fc74598d6742a717719c44278f7, type: 3}
---- !u!114 &857211990 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1897574619821905178, guid: 9a939fc74598d6742a717719c44278f7, type: 3}
-  m_PrefabInstance: {fileID: 857211989}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 857211991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55d337bdb2747754ca61650c76c52352, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &857211991 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8879994001029355133, guid: 9a939fc74598d6742a717719c44278f7, type: 3}
@@ -4302,14 +4284,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backgroundSwitchingController: {fileID: 561770273}
-  backgrounds: []
-  lore: {fileID: 0}
-  sulfur: {fileID: 0}
-  water: {fileID: 0}
-  hammer: {fileID: 0}
-  note: {fileID: 0}
-  uvLight: {fileID: 0}
-  key: {fileID: 0}
+  pickups:
+  - {fileID: 1530565598}
+  - {fileID: 776726982}
+  - {fileID: 269031453}
+  - {fileID: 1105897822}
+  - {fileID: 781622172}
   arrowLeft: {fileID: 47534926}
   arrowRight: {fileID: 1572938507}
   potionToPour: {fileID: 93951060}
@@ -4464,7 +4444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec61e9a947eba524a8193a376c9ac4ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: Sulfer
+  item: PotionSecond
   senderListener: {fileID: 857211991}
   redBeaker: {fileID: 21300000, guid: 06027c96535d1234aa5fe406928e3218, type: 3}
   purpleBeaker: {fileID: 21300000, guid: 0548db8cd74dab545a70195a50ed22d4, type: 3}
@@ -4820,7 +4800,7 @@ MonoBehaviour:
   minUVAngleY: 60
   maxUVAngleY: 255
   discovered: 0
-  debugText: {fileID: 255988304}
+  debugText: {fileID: 0}
 --- !u!1 &1497818052
 GameObject:
   m_ObjectHideFlags: 0
@@ -5260,7 +5240,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 857211990}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PcSender, Assembly-CSharp
         m_MethodName: SetIP
         m_Mode: 5
