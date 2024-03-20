@@ -21,7 +21,7 @@ public class PcListener : MonoBehaviour {
   [SerializeField] private GameObject screenIP;
 
   private PcSender pcSender;
-  [SerializeField] private GameObject senderListener;
+  /*[SerializeField] private GameObject senderListener;*/
   private bool setIP = false;
 
   private void Start() {
@@ -29,7 +29,7 @@ public class PcListener : MonoBehaviour {
     endPoint = new IPEndPoint(IPAddress.Any, 0);
     LogLocalIPAddress();
 
-    pcSender = senderListener.GetComponent<PcSender>();
+    pcSender = this.gameObject.GetComponent<PcSender>();
   }
 
   private void Update() {

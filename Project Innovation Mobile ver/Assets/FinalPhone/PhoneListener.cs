@@ -19,7 +19,7 @@ public class PhoneListener : MonoBehaviour {
   [SerializeField] private GameObject screenIP;
 
   private PhoneSender phoneSender;
-  [SerializeField] private GameObject senderListener;
+  //[SerializeField] private GameObject senderListener;
 
   private void Start() {
     client = new UdpClient(55550);
@@ -27,7 +27,7 @@ public class PhoneListener : MonoBehaviour {
     GetLocalIPAddress();
 
     inventory = inventoryController.GetComponent<Inventory>();
-    phoneSender = senderListener.GetComponent<PhoneSender>();
+    phoneSender = this.gameObject.GetComponent<PhoneSender>();
   }
 
   // Update is called once per frame
