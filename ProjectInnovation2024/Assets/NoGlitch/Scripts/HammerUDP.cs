@@ -39,7 +39,7 @@ public class HammerUDP : MonoBehaviour {
     if (!check && swingCount >= 7) {
       //this.gameObject.GetComponent<SpriteRenderer>().sprite = brokenGlass;
       brokenGlass.SetActive(true);
-      otherGlass.SetActive(false);
+      //otherGlass.SetActive(false);
       check = true;
     }
   }
