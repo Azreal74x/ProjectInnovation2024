@@ -6,10 +6,12 @@ using UnityEngine;
 public class MixUDP : MonoBehaviour
 {
 
-  [SerializeField] private string item = "PotionSecond"; //has to be name of the item in the inventory
+    [SerializeField] private string item = "PotionSecond"; //has to be name of the item in the inventory
 
-  [SerializeField] private GameObject senderListener;
-  private PcListener pcListener; //cache component
+    [SerializeField] private GameObject senderListener;
+    private PcListener pcListener; //cache component
+
+    private Sprite currentSprite;
 
     [SerializeField] private Sprite redBeaker;
     [SerializeField] private Sprite purpleBeaker;
@@ -24,6 +26,7 @@ public class MixUDP : MonoBehaviour
         {
             pcListener = senderListener.GetComponent<PcListener>();
         }
+        currentSprite = GetComponent<SpriteRenderer>().sprite;
     }
 
     private void Update()
@@ -42,7 +45,7 @@ public class MixUDP : MonoBehaviour
         }
         if (!check && swingCount >= 20)
         {
-            this.gameObject.GetComponent<SpriteRenderer>().sprite = purpleBeaker;
+            currentSprite = purpleBeaker;
             check = true;
         }
 
@@ -52,7 +55,7 @@ public class MixUDP : MonoBehaviour
 
     public void FinishedPouring()
     {
-        this.gameObject.GetComponent<SpriteRenderer>().sprite = redBeaker;
+        currentSprite = redBeaker;
         finishedPouring = true;
     }
 }
