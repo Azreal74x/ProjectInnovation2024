@@ -26,7 +26,7 @@ public class MechanicsManager : MonoBehaviour
 
 
     private bool interactedWithUV = false;
-    private bool potion = false;
+    private bool sulfur = false;
 
     [SerializeField] private GameObject arrowLeft;
     [SerializeField] private GameObject arrowRight;
@@ -36,6 +36,8 @@ public class MechanicsManager : MonoBehaviour
 
     [SerializeField] private GameObject roomBrewery;
     [SerializeField] private GameObject roomKey;
+
+
 
 
     private void Start()
@@ -81,16 +83,7 @@ public class MechanicsManager : MonoBehaviour
            */
         if (room == 0)
         {
-            pickups[0].SetActive(true);
-        }
-        else if (room != 0)
-        {
-            pickups[0].SetActive(false);
-        }
-        ////////////
-        if (room == 1)
-        {
-            pickups[1].SetActive(true);
+            pickups[0].SetActive(true); // 
             /* if (pickups[3].GetComponent<MixUDP>().check) //activate throw
              {
                  pickups[4].SetActive(true);
@@ -100,22 +93,26 @@ public class MechanicsManager : MonoBehaviour
                  pickups[5].SetActive(true);
              }*/
         }
+        else if (room != 0)
+        {
+            pickups[0].SetActive(false);
+        }
+        ////////////
+        if (room == 1)
+        {
+            pickups[1].SetActive(true);
+            
+        }
         else if (room != 1)
         {
             pickups[1].SetActive(false);
-            /*pickups[4].SetActive(false);
-            pickups[5].SetActive(false);*/
+            
         }
         ////////////
         if (room == 2)  //  room 2  pour & mix potion
         {
             pickups[2].SetActive(true);
-            /*
-            pickups[3].SetActive(true);
-            if (pickups[1].GetComponentInChildren<HammerUDP>().potion) // if we took the potion
-            {
-                potionToPour.SetActive(true); // set to true the vessel wuth mix in it
-            }*/
+            
         }
         else if (room != 2)
         {
@@ -127,25 +124,27 @@ public class MechanicsManager : MonoBehaviour
         
         if (roomBrewery.activeInHierarchy)  //      zoom in room 2 
         {
-            Debug.Log("active? " + roomBrewery.activeInHierarchy);
+            //Debug.Log("active? " + roomBrewery.activeInHierarchy);
             pickups[3].SetActive(true);
+            pickups[2].SetActive(false);
 
-            /*if (pickups[1].GetComponentInChildren<HammerUDP>().potion) // if we took the potion
+            if (sulfur) // if we took the potion
             {
-                potionToPour.SetActive(true); // set to true the vessel wuth mix in it
-            }*/
+                potionToPour.SetActive(true); // show the vessel wuth mix in it
+            }
         }
         else if (!roomBrewery.activeSelf)
         {
             /*pickups[6].SetActive(false);
 
             pickups[2].SetActive(false);*/
+
             pickups[3].SetActive(false);
         }
         //////////////
         if (roomKey.activeInHierarchy)  //      zoom in room 2 
         {
-            Debug.Log("active? " + roomBrewery.activeInHierarchy);
+            //Debug.Log("active? " + roomBrewery.activeInHierarchy);
             pickups[4].SetActive(true);
         }
         else if (!roomBrewery.activeSelf)
@@ -173,14 +172,10 @@ public class MechanicsManager : MonoBehaviour
     }
 
 
-    public void OpenPour()
-    {
-        if (pickups[1].GetComponentInChildren<HammerUDP>().potion)
-        {
 
-            potionToPour.SetActive(!potionToPour.activeSelf);
-        }
-        else Debug.Log("no potion");
+    public void GotSulfur()
+    {
+        sulfur = true;
     }
 
 

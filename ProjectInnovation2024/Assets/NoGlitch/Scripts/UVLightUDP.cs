@@ -86,7 +86,7 @@ public class UVLightUDP : MonoBehaviour
         {
             //hiddenImage.SetActive(false); //hide secret text if wrong gyro phone rotation
             //debugText.text = "hiding secret text";
-            Debug.Log("hiding secret text");
+            //Debug.Log("hiding secret text");
             currentSprite.sprite = uvPaper;
 
             //Debug.Log(currentSprite.name);
@@ -99,7 +99,7 @@ public class UVLightUDP : MonoBehaviour
         //debugText.text = "should show secret text";
 
         currentSprite.sprite = secretText;
-        Debug.Log("should show secret text");
+        //Debug.Log("should show secret text");
     }
 
     private void CheckPhone()
