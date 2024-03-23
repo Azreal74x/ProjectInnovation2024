@@ -22,7 +22,7 @@ public class PhoneListener : MonoBehaviour {
   //[SerializeField] private GameObject senderListener;
 
   private void Start() {
-    client = new UdpClient(55561);
+    client = new UdpClient(55550);
     endPoint = new IPEndPoint(IPAddress.Any, 0);
     GetLocalIPAddress();
 
