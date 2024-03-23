@@ -18,7 +18,7 @@ public class PhoneSender : MonoBehaviour {
   public bool targetIPSet = false;
 
   private void Start() {
-    client = new UdpClient(55551);
+    client = new UdpClient(55560);
 
     if (SystemInfo.supportsGyroscope) { //check if device has gyroscope
       Input.gyro.enabled = true; //enable use of gyroscope
