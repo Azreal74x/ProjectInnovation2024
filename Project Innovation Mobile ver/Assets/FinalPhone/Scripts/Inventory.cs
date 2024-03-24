@@ -13,13 +13,13 @@ public class Inventory : MonoBehaviour {
 
   private Dictionary<string, GameObject> itemsMap = new Dictionary<string, GameObject>();
   private Dictionary<string, bool> itemsUsed = new Dictionary<string, bool>();
-  private HashSet<string> itemsUnlocked = new HashSet<string>(); // Tracking unlocked items
+  private HashSet<string> itemsUnlocked = new HashSet<string>(); // tracking unlocked items
 
-  public string currentItem = null; // Name of the currently selected item
+  public string currentItem = null; // name of the currently selected item
 
   private void Start() {
     InitializeItemsMap();
-    // No need to initialize itemsUnlocked here since it's already being handled in InitializeItemsMap
+    // no need to initialize itemsUnlocked here since it's already being handled in InitializeItemsMap
   }
 
   private void Update() {

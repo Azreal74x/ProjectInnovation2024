@@ -343,7 +343,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &37180017
 RectTransform:
   m_ObjectHideFlags: 0
@@ -412,7 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26cd477ec91c65743ac82795435fe353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: PotionNew
+  sulfericAcidItem: SulfericAcid
   senderListener: {fileID: 857211991}
   sideRoomButton: {fileID: 770312319}
   explosion: 0
@@ -905,12 +905,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   senderListener: {fileID: 857211991}
-  item: Water
-  secondItem: Sulfer
+  waterItem: Water
+  sulferItem: Sulfer
+  emptyItem: Empty
   secondPotionObj: {fileID: 1395913204}
   calibrationController: {fileID: 90888576}
   rotationSpeed: 5
-  vessel: {fileID: 1395913204}
 --- !u!1 &132216978
 GameObject:
   m_ObjectHideFlags: 0
@@ -1107,6 +1107,18 @@ MonoBehaviour:
       - m_Target: {fileID: 574512646}
         m_TargetAssemblyTypeName: ClickAndDisappear, Assembly-CSharp
         m_MethodName: clickAndBegone
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1358177675}
+        m_TargetAssemblyTypeName: MechanicsManager, Assembly-CSharp
+        m_MethodName: GotWater
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2428,7 +2440,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebf51c9de749a054084ccce28bc28077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: Hammer
+  hammerItem: Hammer
+  sulferItem: Sulfer
   senderListener: {fileID: 857211991}
   hammerObj: {fileID: 1139212364}
   textBox: {fileID: 0}
@@ -2533,7 +2546,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 533963f47de62a649926ed4dce086c57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: UVLight
   senderListner: {fileID: 857211991}
   calibrationController: {fileID: 90888576}
   minPhoneRotationX: 180
@@ -4376,6 +4388,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6a4cd670b180642a5d05cf5f042e14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  senderListener: {fileID: 857211991}
+  waterItem: Water
+  uvLightItem: UVLight
   backgroundSwitchingController: {fileID: 561770273}
   pickups:
   - {fileID: 1530565598}
@@ -4532,14 +4547,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1395913204}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec61e9a947eba524a8193a376c9ac4ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: PotionSecond
   senderListener: {fileID: 857211991}
-  firstForm: {fileID: 21300000, guid: b9cd60a2dd683f44e997b0c0dbe1e169, type: 3}
+  sulfericAcidItem: SulfericAcid
+  emptyItem: Empty
+  firstForm: {fileID: 21300000, guid: be10b3d3929ffc64194970557dc4743e, type: 3}
   secondForm: {fileID: 21300000, guid: 0548db8cd74dab545a70195a50ed22d4, type: 3}
   check: 0
 --- !u!1 &1407457285
@@ -4884,7 +4900,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 533963f47de62a649926ed4dce086c57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: UVLight
   senderListner: {fileID: 857211991}
   calibrationController: {fileID: 90888576}
   minPhoneRotationX: 180
@@ -5539,7 +5554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc7bb35d1ddc44c46b1843e133230a6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: Key
+  keyItem: Key
   senderListener: {fileID: 857211991}
   calibrationController: {fileID: 90888576}
   easing: 1
@@ -6135,8 +6150,8 @@ RectTransform:
   m_Children:
   - {fileID: 356595986}
   - {fileID: 1497818053}
-  - {fileID: 1341743874}
   - {fileID: 37180017}
+  - {fileID: 1341743874}
   - {fileID: 255988303}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6750,6 +6765,18 @@ MonoBehaviour:
       - m_Target: {fileID: 704811001}
         m_TargetAssemblyTypeName: UVLightUDP, Assembly-CSharp
         m_MethodName: GotFlashlight
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1358177675}
+        m_TargetAssemblyTypeName: MechanicsManager, Assembly-CSharp
+        m_MethodName: GotUVFlashlight
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
