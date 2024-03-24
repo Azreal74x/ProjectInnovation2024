@@ -12,6 +12,7 @@ public class MechanicsManager : MonoBehaviour
 
     [SerializeField] private string waterItem = "Water"; //has to be name of the item in the inventory
     [SerializeField] private string uvLightItem = "UVLight"; //has to be name of the item in the inventory
+    [SerializeField] private string noteItem = "Note"; //has to be name of the item in the inventory
 
     [SerializeField] private GameObject backgroundSwitchingController;
     private BackgroundSwitching backgroundSwitching;
@@ -198,6 +199,10 @@ public class MechanicsManager : MonoBehaviour
         pcSender.SendItem(uvLightItem);
 
     }
+
+  public void GotNote() {
+    pcSender.SendItem(noteItem);
+  }
 
 
 }

@@ -7,7 +7,6 @@ public class Inventory : MonoBehaviour {
   [SerializeField] private GameObject itemsButtons;
   [SerializeField] private GameObject itemsSprites;
   [SerializeField] private GameObject backButton;
-  [SerializeField] private GameObject note;
 
   private bool showBackButton = false;
 
@@ -90,7 +89,6 @@ public class Inventory : MonoBehaviour {
     }
     showBackButton = false;
     DeselectCurrentItem();
-    note.SetActive(true);
   }
 
   public void MarkItemAsUsed(string itemName) {
@@ -124,7 +122,6 @@ public class Inventory : MonoBehaviour {
     // This line ensures that the parent container's active state reflects whether any buttons are to be shown
     itemsButtons.SetActive(show);
     showBackButton = !show;
-    note.SetActive(show);
   }
 
   private void DeselectCurrentItem() {
