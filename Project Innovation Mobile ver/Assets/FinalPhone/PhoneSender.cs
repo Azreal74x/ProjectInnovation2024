@@ -17,6 +17,10 @@ public class PhoneSender : MonoBehaviour {
 
   public bool targetIPSet = false;
 
+  [SerializeField] private GameObject inventoryController;
+  private Inventory inventory;
+  private string lastSentItem = null;
+
   private void Start() {
     client = new UdpClient(55551);
 
@@ -25,6 +29,10 @@ public class PhoneSender : MonoBehaviour {
     }
     else {
       //Debug.Log("Gyroscope not supported"); //message if not gyroscope supported
+    }
+
+    if(inventoryController != null) {
+      inventory = inventoryController.GetComponent<Inventory>();  
     }
 
   }
@@ -45,6 +53,7 @@ public class PhoneSender : MonoBehaviour {
     if (!string.IsNullOrEmpty(targetIP)) { // ensure IP is set before sending
       SendGyroData();
       SendAccelerationData();
+      SendCurrentInventoryItem();
     }
   }
 
@@ -75,6 +84,25 @@ public class PhoneSender : MonoBehaviour {
       SendToTarget(bytes);
     }
   }
+
+  private void SendCurrentInventoryItem() {
+    // Check if the current item has changed from the last sent item
+    // This includes checking for a change to or from null
+    if (inventory.currentItem != lastSentItem) {
+      string message = "CURRENT ITEM:";
+      if (!string.IsNullOrEmpty(inventory.currentItem)) {
+        message += inventory.currentItem; // Add the current item name if not null
+      }
+      else {
+        message += "null"; // Explicitly send "null" if no item is selected
+      }
+      byte[] bytes = Encoding.ASCII.GetBytes(message);
+      SendToTarget(bytes);
+
+      lastSentItem = inventory.currentItem; // Update the last sent item
+    }
+  }
+
   string QuaternionToString(Quaternion q) {
     return $"{q.x},{q.y},{q.z},{q.w}";
   }

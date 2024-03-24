@@ -46,12 +46,21 @@ public class PcSender : MonoBehaviour {
       SendToTarget(bytes);
     }
   }
-
-  public void SendUsedItem(string itemToSend) {
+  public void SendItem(string itemToSend) {
     if (!string.IsNullOrEmpty(itemToSend) && !string.IsNullOrEmpty(targetIP)) {
       itemToSend = "ITEM:" + itemToSend;
+      Debug.Log("item to send: " + itemToSend);
       byte[] bytes = Encoding.ASCII.GetBytes(itemToSend);
       SendToTarget(bytes);
     }
   }
+
+  public void SendUsedItem(string itemToSend) {
+    if (!string.IsNullOrEmpty(itemToSend) && !string.IsNullOrEmpty(targetIP)) {
+      itemToSend = "USED ITEM:" + itemToSend;
+      byte[] bytes = Encoding.ASCII.GetBytes(itemToSend);
+      SendToTarget(bytes);
+    }
+  }
+
 }

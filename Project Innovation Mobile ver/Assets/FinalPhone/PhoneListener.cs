@@ -43,6 +43,7 @@ public class PhoneListener : MonoBehaviour {
     while (client.Available > 0) {
       byte[] inBytes = client.Receive(ref endPoint);
       string inString = Encoding.UTF8.GetString(inBytes);
+      Debug.Log("received inString data: " + inString);
       if (inString.StartsWith("PC_IP:")) {
         Debug.Log($"Received IP: {inString.Substring(6)} from {endPoint}");
         string receivedIP = inString.Substring(6).Trim();
@@ -58,6 +59,13 @@ public class PhoneListener : MonoBehaviour {
       }
       else if (inString.StartsWith("ITEM:")) {
         string receivedItem = inString.Substring(5);
+        if (receivedItem != null) {
+          inventory.UnlockItem(receivedItem);
+          Debug.Log($"Received Item: {receivedItem} from {endPoint}");
+        }
+      }
+      else if (inString.StartsWith("USED ITEM:")) {
+        string receivedItem = inString.Substring(10);
         if (receivedItem != null) {
           inventory.MarkItemAsUsed(receivedItem);
           Debug.Log($"Received Item: {receivedItem} from {endPoint}");

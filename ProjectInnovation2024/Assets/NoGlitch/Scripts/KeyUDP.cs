@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class KeyUDP : MonoBehaviour {
-  [SerializeField] private string item = "Key"; //has to be name of the item in the inventory
+  [SerializeField] private string keyItem = "Key"; //has to be name of the item in the inventory
 
   [SerializeField] private GameObject senderListener;
   private PcListener pcListener; //cache component
+  private PcSender pcSender; //cache component
 
   [SerializeField] private GameObject calibrationController;
   private Calibration calibration;
@@ -37,6 +38,7 @@ public class KeyUDP : MonoBehaviour {
 
     if (senderListener != null) {
       pcListener = senderListener.GetComponent<PcListener>();
+      pcSender = senderListener.GetComponent<PcSender>();
     }
 
     if (calibrationController != null) {
@@ -90,6 +92,7 @@ public class KeyUDP : MonoBehaviour {
     if (!didBoom) {
       Debug.Log("Boom");
       door.GetComponent<SpriteRenderer>().sprite = doorOpen;
+      pcSender.SendUsedItem(keyItem);
     }
     didBoom = true;
   }
@@ -111,7 +114,7 @@ public class KeyUDP : MonoBehaviour {
 
   public void KeyPicked() {
     key = true;
-
+    pcSender.SendItem(keyItem);
   }
 
 }

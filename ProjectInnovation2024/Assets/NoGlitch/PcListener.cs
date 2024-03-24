@@ -3,7 +3,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using TMPro;
-using UnityEngine.Device;
 
 public class PcListener : MonoBehaviour {
 
@@ -23,6 +22,8 @@ public class PcListener : MonoBehaviour {
   private PcSender pcSender;
   /*[SerializeField] private GameObject senderListener;*/
   private bool setIP = false;
+
+  public string currentItem; 
 
   private void Start() {
     client = new UdpClient(55551);
@@ -63,7 +64,6 @@ public class PcListener : MonoBehaviour {
         if (receivedIP == currentIP) {
           ipv4.text = " ";
           setIP = true;
-
         }
         else {
           Debug.Log("Try again, receivedIP is: " + receivedIP + " but the current IP is: " + currentIP);
@@ -79,6 +79,10 @@ public class PcListener : MonoBehaviour {
         string accelData = inString.Substring(6);
         accelerationSqrMagnitude = float.Parse(accelData);
         //Debug.Log($"Received Acceleration Squared Magnitude: {accelerationSqrMagnitude} from {endPoint}");
+      }
+      else if (inString.StartsWith("CURRENT ITEM:")) {
+        currentItem = inString.Substring(13);
+        Debug.Log($"Received current item: {currentItem} from {endPoint}");
       }
     }
   }

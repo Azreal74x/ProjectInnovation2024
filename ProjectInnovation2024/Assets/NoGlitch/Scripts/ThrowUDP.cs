@@ -4,10 +4,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class ThrowUDP : MonoBehaviour {
-  [SerializeField] private string item = "PotionNew"; //has to be name of the item in the inventory
+  [SerializeField] private string sulfericAcidItem = "SulfericAcid"; //has to be name of the item in the inventory
 
   [SerializeField] private GameObject senderListener;
   private PcListener pcListener; //cache component
+  private PcSender pcSender; //cache component
 
   [SerializeField] private GameObject sideRoomButton;
   public bool explosion = false;
@@ -17,6 +18,7 @@ public class ThrowUDP : MonoBehaviour {
   void Start() {
     if (senderListener != null) {
       pcListener = senderListener.GetComponent<PcListener>();
+      pcSender = senderListener.GetComponent<PcSender>();
     }
   }
 
@@ -34,5 +36,6 @@ public class ThrowUDP : MonoBehaviour {
 
   private void SwitchDoor() {
     ExplodedDoor.SetActive(true);
+    pcSender.SendUsedItem(sulfericAcidItem);
   }
 }

@@ -2428,6 +2428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebf51c9de749a054084ccce28bc28077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: Hammer
   senderListener: {fileID: 857211991}
   hammerObj: {fileID: 1139212364}
   textBox: {fileID: 0}
