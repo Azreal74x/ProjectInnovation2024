@@ -5,10 +5,11 @@ using TMPro;
 using UnityEngine;
 
 public class UVLightUDP : MonoBehaviour {
-  [SerializeField] private string item = "UVLight"; //has to be name of the item in the inventory
+  [SerializeField] private string uvLightItem = "UVLight"; //has to be name of the item in the inventory
 
   [SerializeField] private GameObject senderListner;
   private PcListener pcListener; //cache component
+  private PcSender pcSender; //cache component
 
   [SerializeField] private GameObject calibrationController;
   private Calibration calibration;
@@ -18,11 +19,19 @@ public class UVLightUDP : MonoBehaviour {
   [SerializeField] private float minUVAngleY = 60; //minimum down when faced away
   [SerializeField] private float maxUVAngleY = 255; //maximum right when faced away
 
-  
+  private bool gotFlashlight = false;
 
-  public bool discovered = false;
+  //testing stuff so the uv shows
 
-  public TextMeshProUGUI debugText;
+  //[SerializeField] private GameObject paperObject;
+  public SpriteRenderer currentSprite;
+
+  [SerializeField] private Sprite uvPaper;
+  [SerializeField] private Sprite secretText;
+  //[SerializeField] private GameObject secretTextImg;
+
+  //public bool discovered = false;
+
 
   private void Start() {
     if (senderListner != null) {
@@ -35,6 +44,9 @@ public class UVLightUDP : MonoBehaviour {
     if (calibrationController != null) {
       calibration = calibrationController.GetComponent<Calibration>();
     }
+
+    currentSprite = GetComponent<SpriteRenderer>();
+
   }
 
   private void Update() {
@@ -42,7 +54,9 @@ public class UVLightUDP : MonoBehaviour {
       return;
     }
     CheckPhone();
-    GyroCheck();
+    if (gotFlashlight) {
+      GyroCheck();
+    }
   }
 
   private void GyroCheck() {
@@ -60,13 +74,20 @@ public class UVLightUDP : MonoBehaviour {
     }
     else {
       //hiddenImage.SetActive(false); //hide secret text if wrong gyro phone rotation
-      debugText.text = "hiding secret text";
+      //debugText.text = "hiding secret text";
+      //Debug.Log("hiding secret text");
+      currentSprite.sprite = uvPaper;
+
+      //Debug.Log(currentSprite.name);
     }
   }
 
   private void ShowText() {
-    discovered = true;
-    debugText.text = "should show secret text";
+    //discovered = true;
+    //debugText.text = "should show secret text";
+
+    currentSprite.sprite = secretText;
+    //Debug.Log("should show secret text");
   }
 
   private void CheckPhone() {
@@ -90,6 +111,11 @@ public class UVLightUDP : MonoBehaviour {
 
   public void TurnOn() {
     this.gameObject.SetActive(true);
+  }
+
+  public void GotFlashlight() {
+    gotFlashlight = true;
+    pcSender.SendItem(uvLightItem);
   }
 
 }

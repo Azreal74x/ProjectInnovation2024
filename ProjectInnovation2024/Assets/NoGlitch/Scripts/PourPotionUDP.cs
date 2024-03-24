@@ -8,10 +8,13 @@ public class PourPotionUDP : MonoBehaviour {
   private PcListener pcListener; //cache component
   private PcSender pcSender; //cache component
 
-  [SerializeField] private string item = "Water"; //has to be name of the item in the inventory
-  [SerializeField] private string secondItem = "Sulfer"; //has to be name of the item in the inventory
-  
-  public bool newPotion = false; //WE HAVE TO DO THIS
+  [SerializeField] private string waterItem = "Water"; //has to be name of the item in the inventory
+  [SerializeField] private string sulferItem = "Sulfer"; //has to be name of the item in the inventory
+  [SerializeField] private string sulfericAcidItem = "SulfericAcid"; //has to be name of the item in the inventory
+
+  private bool secondPotion = false; //WE HAVE TO DO THIS
+  [SerializeField] private GameObject secondPotionObj;
+  private MixUDP mixScriptOnWater;
 
   private Quaternion previousGyroData;
 
@@ -44,6 +47,7 @@ public class PourPotionUDP : MonoBehaviour {
 
     targetRotation = transform.rotation;
 
+    mixScriptOnWater = secondPotionObj.GetComponent<MixUDP>();
   }
 
 
@@ -52,9 +56,11 @@ public class PourPotionUDP : MonoBehaviour {
       return;
     }
 
-    Debug.Log("is calibrated");
+    //Debug.Log("is calibrated");
     CheckPhone();
-    GyroCheck();
+    if (secondPotion) {
+      GyroCheck();
+    }
 
 
   }
@@ -63,9 +69,9 @@ public class PourPotionUDP : MonoBehaviour {
     if (currentGyroData != previousGyroData) { //only update when the value changes
 
       Quaternion correctedOrientation = currentGyroData * calibration.initialOrientation; //apply the calibration offset to the current orientation
-            // initial orientation on the left if u wanna ctually invert it
+                                                                                          // initial orientation on the left if u wanna ctually invert it
       Vector3 gyroRotation = correctedOrientation.eulerAngles; // Use corrected orientation
-            //Quaternion.angle !!!
+                                                               //Quaternion.angle !!!
       if (calibration.iphone) {
         if (gyroRotation.x > minPhoneRotationX || gyroRotation.x < maxPhoneRotationX) { //check we are pouring within the phone upright position within the x range
           Vector3 spriteRotation = new Vector3(0, 0, -gyroRotation.y);  // IPHONE
@@ -93,8 +99,9 @@ public class PourPotionUDP : MonoBehaviour {
 
   private void Pour() {
     if (!didPour) {
-      //Debug.Log("Pouring now");
-      pcSender.SendUsedItem(item);
+      Debug.Log("Pouring now");
+      pcSender.SendUsedItem(sulferItem);
+      //pcSender.SendItem(sulfericAcidItem);
     }
     didPour = true;
     StartCoroutine(WaitSomeSecs());
@@ -103,7 +110,8 @@ public class PourPotionUDP : MonoBehaviour {
 
   private IEnumerator WaitSomeSecs() {
     yield return new WaitForSeconds(2);
-    vessel.SetActive(true);
+    //vessel.SetActive(true);
+    mixScriptOnWater.enabled = true;
     //vessel.GetComponent<MixUDP>().FinishedPouring();
   }
 
@@ -120,5 +128,11 @@ public class PourPotionUDP : MonoBehaviour {
       minPourAngleY = 120;
       maxPourAngleY = 180;
     }
+  }
+
+  public void GotSecondPotion() {
+    secondPotion = true;
+    secondPotionObj.SetActive(true);
+    pcSender.SendUsedItem(waterItem);
   }
 }

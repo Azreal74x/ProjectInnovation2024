@@ -398,7 +398,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 11.8, y: 480.2}
+  m_AnchoredPosition: {x: 11.8, y: 420}
   m_SizeDelta: {x: 1440, y: 2560}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &196811514
@@ -1026,7 +1026,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 72
   m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1714,7 +1714,7 @@ MonoBehaviour:
   itemsSprites: {fileID: 755983315}
   backButton: {fileID: 1980856028}
   note: {fileID: 540761719}
-  phoneListener: {fileID: 0}
+  currentItem: 
 --- !u!4 &841463976
 Transform:
   m_ObjectHideFlags: 0
@@ -1968,7 +1968,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1167994004
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2097,7 +2097,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1257463311
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2217,7 +2217,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1353888432
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2424,7 +2424,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1409170451
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2945,7 +2945,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1665519606
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3499,6 +3499,10 @@ PrefabInstance:
       propertyPath: debugText
       value: 
       objectReference: {fileID: 1130010177}
+    - target: {fileID: 1001217608934034096, guid: 98e27521bd0c8f24b949af5eec033da5, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 841463974}
     - target: {fileID: 4128399743242240971, guid: 98e27521bd0c8f24b949af5eec033da5, type: 3}
       propertyPath: m_Name
       value: SenderListener
@@ -3578,7 +3582,6 @@ MonoBehaviour:
   inventoryController: {fileID: 841463974}
   setIP: 0
   screenIP: {fileID: 394230072}
-  senderListener: {fileID: 527670748}
 --- !u!1 &2097399583
 GameObject:
   m_ObjectHideFlags: 0

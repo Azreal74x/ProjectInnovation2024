@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour {
-
   [SerializeField] private GameObject itemsButtons;
   [SerializeField] private GameObject itemsSprites;
   [SerializeField] private GameObject backButton;
@@ -12,21 +11,21 @@ public class Inventory : MonoBehaviour {
 
   private bool showBackButton = false;
 
-  [SerializeField] private PhoneListener phoneListener;
-
   private Dictionary<string, GameObject> itemsMap = new Dictionary<string, GameObject>();
   private Dictionary<string, bool> itemsUsed = new Dictionary<string, bool>();
+  private HashSet<string> itemsUnlocked = new HashSet<string>(); // Tracking unlocked items
+
+  public string currentItem = null; // Name of the currently selected item
 
   private void Start() {
     InitializeItemsMap();
-    phoneListener = GetComponent<PhoneListener>();
-    //phoneSender.setIP
+    // No need to initialize itemsUnlocked here since it's already being handled in InitializeItemsMap
   }
 
   private void Update() {
     CheckBackButton();
   }
-  
+
   void CheckBackButton() {
     if (showBackButton) {
       backButton.SetActive(true);
@@ -43,6 +42,19 @@ public class Inventory : MonoBehaviour {
       if (correspondingButton != null) {
         itemsMap[correspondingButton.name] = sprite.gameObject;
         itemsUsed[correspondingButton.name] = false;
+        // Initially, items are not unlocked, so no action needed to add them to itemsUnlocked here
+        correspondingButton.SetActive(false); // Initially, buttons are not visible
+      }
+    }
+  }
+
+  // Method to unlock items and make their buttons visible
+  public void UnlockItem(string itemName) {
+    if (itemsMap.ContainsKey(itemName) && !itemsUnlocked.Contains(itemName)) {
+      itemsUnlocked.Add(itemName);
+      var button = itemsButtons.transform.Find(itemName)?.gameObject;
+      if (button != null) {
+        button.SetActive(true); // Make the button visible
       }
     }
   }
@@ -58,26 +70,29 @@ public class Inventory : MonoBehaviour {
       return;
     }
 
+    // Update the currently selected item
+    currentItem = buttonName;
+
     foreach (var item in itemsMap) {
       item.Value.SetActive(false); // Hide all sprites
     }
 
     if (itemsMap.ContainsKey(buttonName)) {
       itemsMap[buttonName].SetActive(true);
-      ShowOrHideButtons(false); // Hide buttons except used ones
+      ShowOrHideButtons(false); // Hide buttons except for the used ones
     }
   }
 
   public void OnBackButtonClick() {
-    ShowOrHideButtons(true); // Show all buttons except used ones
+    ShowOrHideButtons(true); // Show all buttons except for the used ones
     foreach (var sprite in itemsMap.Values) {
       sprite.SetActive(false); // Hide all sprites
     }
     showBackButton = false;
+    DeselectCurrentItem();
     note.SetActive(true);
   }
 
-  // Method to mark an item as used, callable from other scripts
   public void MarkItemAsUsed(string itemName) {
     if (itemsUsed.ContainsKey(itemName)) {
       itemsUsed[itemName] = true;
@@ -98,18 +113,21 @@ public class Inventory : MonoBehaviour {
     }
   }
 
-  // Ensure to update ShowOrHideButtons method if it's not correctly managing the parent object's active state
   private void ShowOrHideButtons(bool show) {
-    foreach (var item in itemsUsed) {
-      var button = itemsButtons.transform.Find(item.Key)?.gameObject;
-      if (button != null) {
+    foreach (var item in itemsMap.Keys) {
+      var button = itemsButtons.transform.Find(item)?.gameObject;
+      if (button != null && itemsUnlocked.Contains(item)) {
         // Show or hide the button based on the 'show' parameter and whether the item is used
-        button.SetActive(show && !item.Value);
+        button.SetActive(show && !itemsUsed[item]);
       }
     }
     // This line ensures that the parent container's active state reflects whether any buttons are to be shown
     itemsButtons.SetActive(show);
-    showBackButton = true;
-    note.SetActive(false);
+    showBackButton = !show;
+    note.SetActive(show);
+  }
+
+  private void DeselectCurrentItem() {
+    currentItem = null;
   }
 }
