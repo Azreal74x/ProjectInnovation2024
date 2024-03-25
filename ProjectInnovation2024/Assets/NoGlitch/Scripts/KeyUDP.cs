@@ -2,119 +2,141 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeyUDP : MonoBehaviour {
-  [SerializeField] private string keyItem = "Key"; //has to be name of the item in the inventory
+public class KeyUDP : MonoBehaviour
+{
 
-  [SerializeField] private GameObject senderListener;
-  private PcListener pcListener; //cache component
-  private PcSender pcSender; //cache component
+    [SerializeField] private GameObject senderListener;
+    private PcListener pcListener; //cache component
+    private PcSender pcSender; //cache component
 
-  [SerializeField] private GameObject calibrationController;
-  private Calibration calibration;
+    [SerializeField] private string keyItem = "Key"; //has to be name of the item in the inventory
 
-  [SerializeField] private bool easing = false;
-  [SerializeField] private float rotationSpeed = 2f;
-  private Quaternion targetRotation;
-  private Vector3 spriteRotation;
+    [SerializeField] private GameObject calibrationController;
+    private Calibration calibration;
 
-  [SerializeField] private float minPhoneRotationX;
-  [SerializeField] private float maxPhoneRotationX;
-  [SerializeField] private float minTurnAngleZ;
-  [SerializeField] private float maxTurnAngleZ;
+    [SerializeField] private bool easing = false;
+    [SerializeField] private float rotationSpeed = 2f;
+    private Quaternion targetRotation;
+    private Vector3 spriteRotation;
 
-  [SerializeField] private GameObject door;
-  [SerializeField] private Sprite doorOpen;
+    [SerializeField] private float minPhoneRotationX;
+    [SerializeField] private float maxPhoneRotationX;
+    [SerializeField] private float minTurnAngleZ;
+    [SerializeField] private float maxTurnAngleZ;
 
-  private bool key = false;
-  private bool didBoom = false;
+    [SerializeField] private GameObject door;
+    [SerializeField] private Sprite doorOpen;
 
-  private void Start() {
-    if (SystemInfo.supportsGyroscope) { //check if device has gyroscope
-      Input.gyro.enabled = true; //enable use of gyroscope
-    }
-    else {
-      Debug.Log("Gyroscope not supported"); //message if not supported
-    }
+    private bool key = false;
+    private bool didBoom = false;
 
-    if (senderListener != null) {
-      pcListener = senderListener.GetComponent<PcListener>();
-      pcSender = senderListener.GetComponent<PcSender>();
-    }
+    private void Start()
+    {
+        if (SystemInfo.supportsGyroscope)
+        { //check if device has gyroscope
+            Input.gyro.enabled = true; //enable use of gyroscope
+        }
+        else
+        {
+            Debug.Log("Gyroscope not supported"); //message if not supported
+        }
 
-    if (calibrationController != null) {
-      calibration = calibrationController.GetComponent<Calibration>();
-    }
+        if (senderListener != null)
+        {
+            pcListener = senderListener.GetComponent<PcListener>();
+            pcSender = senderListener.GetComponent<PcSender>();
+        }
 
-    if (easing) {
-      targetRotation = transform.rotation;
-    }
-  }
+        if (calibrationController != null)
+        {
+            calibration = calibrationController.GetComponent<Calibration>();
+        }
 
-
-  private void Update() {
-    if (!calibration.isCalibrated) {
-      return;
-    }
-    CheckPhone();
-
-    //if (key) {
-      GyroCheck();
-    //}
-    Debug.Log("key? " + key);
-  }
-
-  private void GyroCheck() {
-    Quaternion currentGyroData = pcListener.gyroQuaternion;
-    Quaternion correctedOrientation = currentGyroData * calibration.initialOrientation;
-    Vector3 gyroRot = correctedOrientation.eulerAngles; // Use corrected orientation
-
-    if (gyroRot.x > minPhoneRotationX && gyroRot.x < maxPhoneRotationX) { //check we are pouring within the phone upright position within the x range
-      spriteRotation = new Vector3(0, 0, -gyroRot.z); //due to weird coordinate space we set the spriteRotation's Z to -y
-
-      if (gyroRot.z > minTurnAngleZ && gyroRot.z < maxTurnAngleZ) { //check if we are pouring correct direction
-
-        ExplosionAndOpenDoor();
-      }
+        if (easing)
+        {
+            targetRotation = transform.rotation;
+        }
     }
 
-    if (easing) {
-      targetRotation = Quaternion.Euler(spriteRotation); //easing
-      transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-    }
-    else {
-      transform.rotation = Quaternion.Euler(spriteRotation); //set the current sprite rotation to the vector with Euler to avoid gimball lock
+
+    private void Update()
+    {
+        if (!calibration.isCalibrated)
+        {
+            return;
+        }
+        CheckPhone();
+
+        //if (key) {
+        GyroCheck();
+        //}
+        Debug.Log("key? " + key);
     }
 
-    //Debug.Log(gyroRot); //show text
-  }
+    private void GyroCheck()
+    {
+        Quaternion currentGyroData = pcListener.gyroQuaternion;
+        Quaternion correctedOrientation = currentGyroData * calibration.initialOrientation;
+        Vector3 gyroRot = correctedOrientation.eulerAngles; // Use corrected orientation
 
-  private void ExplosionAndOpenDoor() {
-    if (!didBoom) {
-      Debug.Log("Boom");
-      door.GetComponent<SpriteRenderer>().sprite = doorOpen;
-      pcSender.SendUsedItem(keyItem);
-    }
-    didBoom = true;
-  }
+        if (gyroRot.x > minPhoneRotationX && gyroRot.x < maxPhoneRotationX)
+        { //check we are pouring within the phone upright position within the x range
+            spriteRotation = new Vector3(0, 0, -gyroRot.z); //due to weird coordinate space we set the spriteRotation's Z to -y
 
-  private void CheckPhone() {
-    if (calibration.iphone) {
-      minPhoneRotationX = 270f;
-      maxPhoneRotationX = 310f;
-      minTurnAngleZ = 190f;
-      maxTurnAngleZ = 200f;
-    }
-    else {
-      minPhoneRotationX = 50f;
-      maxPhoneRotationX = 90f;
-      minTurnAngleZ = 170f;
-      maxTurnAngleZ = 180f;
-    }
-  }
+            if (gyroRot.z > minTurnAngleZ && gyroRot.z < maxTurnAngleZ)
+            { //check if we are pouring correct direction
 
-  public void KeyPicked() {
-    key = true;
-    pcSender.SendItem(keyItem);
-  }
+                ExplosionAndOpenDoor();
+            }
+        }
+
+        if (easing)
+        {
+            targetRotation = Quaternion.Euler(spriteRotation); //easing
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(spriteRotation); //set the current sprite rotation to the vector with Euler to avoid gimball lock
+        }
+
+        //Debug.Log(gyroRot); //show text
+    }
+
+    private void ExplosionAndOpenDoor()
+    {
+        if (!didBoom)
+        {
+            Debug.Log("Boom");
+            door.GetComponent<SpriteRenderer>().sprite = doorOpen;
+            pcSender.SendUsedItem(keyItem);
+        }
+        didBoom = true;
+    }
+
+    private void CheckPhone()
+    {
+        if (calibration.iphone)
+        {
+            minPhoneRotationX = 270f;
+            maxPhoneRotationX = 310f;
+            minTurnAngleZ = 190f;
+            maxTurnAngleZ = 200f;
+        }
+        else
+        {
+            minPhoneRotationX = 50f;
+            maxPhoneRotationX = 90f;
+            minTurnAngleZ = 170f;
+            maxTurnAngleZ = 180f;
+        }
+    }
+
+    public void KeyPicked()
+    {
+        key = true;
+        pcSender.SendItem(keyItem);
+
+    }
 
 }

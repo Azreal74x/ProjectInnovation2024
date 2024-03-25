@@ -13,10 +13,10 @@ public class UVLightUDP : MonoBehaviour
     [SerializeField] private GameObject calibrationController;
     private Calibration calibration;
 
-    [SerializeField] private float minPhoneRotationX = 180; //maximum up when faced away
-    [SerializeField] private float maxPhoneRotationX = 320; //minimum left when faced away
-    [SerializeField] private float minUVAngleY = 60; //minimum down when faced away
-    [SerializeField] private float maxUVAngleY = 255; //maximum right when faced away
+    private float minPhoneRotationX; //maximum up when faced away
+    private float maxPhoneRotationX; //minimum left when faced away
+    private float minUVAngleY; //minimum down when faced away
+    private float maxUVAngleY; //maximum right when faced away
 
     private bool gotFlashlight = false;
 
@@ -81,6 +81,7 @@ public class UVLightUDP : MonoBehaviour
             currentSprite.sprite = uvPaper;
 
         }
+
     }
 
     private void ShowText()
@@ -101,8 +102,8 @@ public class UVLightUDP : MonoBehaviour
         }
         else
         {
-            minPhoneRotationX = 340;
-            maxPhoneRotationX = 60;
+            minPhoneRotationX = 340; //340
+            maxPhoneRotationX = 120; //60
             minUVAngleY = 240;
             maxUVAngleY = 300;
         }
@@ -123,6 +124,6 @@ public class UVLightUDP : MonoBehaviour
         gotFlashlight = true;
     }
 
-   
+
 
 }
