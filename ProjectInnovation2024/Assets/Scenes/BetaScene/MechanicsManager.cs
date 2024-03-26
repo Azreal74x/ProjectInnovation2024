@@ -183,7 +183,7 @@ public class MechanicsManager : MonoBehaviour
 
         if (endScreen.activeSelf)
         {
-            EndMusic.start();
+            EndMusic.start(); //THESE WILL PLAY AND LOOP EVERY FRAME. WHEN YOU HAVE A WAY TO DETECT THE GAME HAS STARTED (when we play the normal music) BE SURE TO PUTT IN A
 
             for (int i = 0; i < pickups.Count; i++)
             {
