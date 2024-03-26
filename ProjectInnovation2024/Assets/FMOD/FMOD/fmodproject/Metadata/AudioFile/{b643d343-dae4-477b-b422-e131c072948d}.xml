@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{b643d343-dae4-477b-b422-e131c072948d}">
+		<property name="assetPath">
+			<value>tap-notification-180637.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.15673469387755101</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{54498f3a-0590-4b8e-aaa1-85f13422b877}</destination>
+		</relationship>
+	</object>
+</objects>

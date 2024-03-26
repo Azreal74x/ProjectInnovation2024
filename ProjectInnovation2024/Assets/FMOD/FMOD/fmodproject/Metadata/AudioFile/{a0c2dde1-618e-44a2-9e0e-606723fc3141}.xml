@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{a0c2dde1-618e-44a2-9e0e-606723fc3141}">
+		<property name="assetPath">
+			<value>heavy-breathing-14431.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>24</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>14.568</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{54498f3a-0590-4b8e-aaa1-85f13422b877}</destination>
+		</relationship>
+	</object>
+</objects>

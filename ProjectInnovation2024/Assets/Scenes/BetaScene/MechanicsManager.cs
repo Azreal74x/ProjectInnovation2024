@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine;
+using FMODUnity; // Import the FMODUnity namespace
+
 
 
 public class MechanicsManager : MonoBehaviour
@@ -33,6 +36,14 @@ public class MechanicsManager : MonoBehaviour
     [SerializeField] private GameObject roomKey;
     [SerializeField] private GameObject roomDoor;
     [SerializeField] private GameObject endScreen;
+    private FMOD.Studio.EventInstance EndMusic;
+    [FMODUnity.EventRef][SerializeField] private string fmodEndMusic;
+
+    private FMOD.Studio.EventInstance pickupSound;                     
+    [FMODUnity.EventRef] [SerializeField] private string fmodPickupSound; // The name of the FMOD event you want to trigger
+
+    
+
 
 
 
@@ -44,6 +55,11 @@ public class MechanicsManager : MonoBehaviour
         }
 
         backgroundSwitching = backgroundSwitchingController.GetComponent<BackgroundSwitching>();
+
+        pickupSound = FMODUnity.RuntimeManager.CreateInstance(fmodPickupSound); // Create an instance of the FMOD event made by sno :D (i don't do CamelCasing)
+
+        EndMusic = FMODUnity.RuntimeManager.CreateInstance(fmodEndMusic);
+
     }
 
     private void Update()
@@ -167,7 +183,9 @@ public class MechanicsManager : MonoBehaviour
 
         if (endScreen.activeSelf)
         {
-            for(int i = 0; i < pickups.Count; i++)
+            EndMusic.start();
+
+            for (int i = 0; i < pickups.Count; i++)
             {
                 pickups[i].SetActive(false);
             }
@@ -185,6 +203,9 @@ public class MechanicsManager : MonoBehaviour
     public void GotSulfur()
     {
         sulfur = true;
+
+        pickupSound.start(); // Start playing the FMOD event
+
     }
 
     public void GotWater()

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{96790bac-440d-49e1-9f35-f9a3e91f20db}">
+		<property name="assetPath">
+			<value>painful_squeek_rust-103318.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>24</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>2.952</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{54498f3a-0590-4b8e-aaa1-85f13422b877}</destination>
+		</relationship>
+	</object>
+</objects>

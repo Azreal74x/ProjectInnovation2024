@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{1e5e2a48-a8db-4f10-848e-757962aac9da}">
+		<property name="assetPath">
+			<value>scratching-metal-4-188119.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.776</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{54498f3a-0590-4b8e-aaa1-85f13422b877}</destination>
+		</relationship>
+	</object>
+</objects>
