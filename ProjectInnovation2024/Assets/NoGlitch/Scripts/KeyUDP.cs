@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using JetBrains.Annotations;
 
 public class KeyUDP : MonoBehaviour
 {
@@ -24,11 +27,15 @@ public class KeyUDP : MonoBehaviour
     [SerializeField] private float minTurnAngleZ;
     [SerializeField] private float maxTurnAngleZ;
 
-    [SerializeField] private GameObject door;
-    [SerializeField] private Sprite doorOpen;
-
     private bool key = false;
     private bool didBoom = false;
+
+    [SerializeField] private GameObject doorEnd;
+
+    public bool gameEnd = false;
+
+    [SerializeField] private GameObject endComic;
+
 
     private void Start()
     {
@@ -67,10 +74,12 @@ public class KeyUDP : MonoBehaviour
         }
         CheckPhone();
 
-        //if (key) {
-        GyroCheck();
-        //}
         Debug.Log("key? " + key);
+
+        if (key && pcListener.currentItem == "Key")
+        {
+            GyroCheck();
+        }
     }
 
     private void GyroCheck()
@@ -86,7 +95,7 @@ public class KeyUDP : MonoBehaviour
             if (gyroRot.z > minTurnAngleZ && gyroRot.z < maxTurnAngleZ)
             { //check if we are pouring correct direction
 
-                ExplosionAndOpenDoor();
+                OpenDoor();
             }
         }
 
@@ -103,16 +112,38 @@ public class KeyUDP : MonoBehaviour
         //Debug.Log(gyroRot); //show text
     }
 
-    private void ExplosionAndOpenDoor()
+    private void OpenDoor()
     {
         if (!didBoom)
         {
             Debug.Log("Boom");
-            door.GetComponent<SpriteRenderer>().sprite = doorOpen;
+
+            doorEnd.SetActive(true);
+
             pcSender.SendUsedItem(keyItem);
+
+            gameEnd = true;
+            StartCoroutine(WaitSomeSecs());
+
+
         }
         didBoom = true;
+
     }
+
+
+    private IEnumerator WaitSomeSecs()
+    {
+        yield return new WaitForSeconds(2);
+
+        endComic.SetActive(true);
+
+        yield return new WaitForSeconds(7);
+        
+        SceneManager.LoadScene(0); 
+
+    }
+
 
     private void CheckPhone()
     {

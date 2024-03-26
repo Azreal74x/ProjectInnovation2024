@@ -18,18 +18,6 @@ public class MechanicsManager : MonoBehaviour
     private BackgroundSwitching backgroundSwitching;
 
     [SerializeField] private List<GameObject> pickups;
-    //[SerializeField] private List<GameObject> backgrounds;
-
-    //[SerializeField] private GameObject lore;
-
-    //[SerializeField] private GameObject sulfur;
-    //[SerializeField] private GameObject water;
-    //[SerializeField] private GameObject hammer;
-
-    //[SerializeField] private GameObject note;
-    //[SerializeField] private GameObject uvLight;
-
-    //[SerializeField] private GameObject key;
 
 
     private bool interactedWithUV = false;
@@ -43,7 +31,8 @@ public class MechanicsManager : MonoBehaviour
 
     [SerializeField] private GameObject roomBrewery;
     [SerializeField] private GameObject roomKey;
-
+    [SerializeField] private GameObject roomDoor;
+    [SerializeField] private GameObject endScreen;
 
 
 
@@ -112,32 +101,32 @@ public class MechanicsManager : MonoBehaviour
         if (room == 1)
         {
             pickups[1].SetActive(true);
-            
+
         }
         else if (room != 1)
         {
             pickups[1].SetActive(false);
-            
+
         }
         ////////////
         if (room == 2)  //  room 2  pour & mix potion
         {
             pickups[2].SetActive(true);
-            
+
         }
         else if (room != 2)
         {
             pickups[2].SetActive(false);
             //pickups[3].SetActive(false);
         }
-        
+
         ////////////
-        
-        if (roomBrewery.activeInHierarchy)  //      zoom in room 2 
+
+        if (roomBrewery.activeSelf)  //      zoom in room 2 
         {
-            //Debug.Log("active? " + roomBrewery.activeInHierarchy);
-            pickups[3].SetActive(true);
             pickups[2].SetActive(false);
+
+            pickups[3].SetActive(true);
 
             if (sulfur) // if we took the potion
             {
@@ -146,34 +135,43 @@ public class MechanicsManager : MonoBehaviour
         }
         else if (!roomBrewery.activeSelf)
         {
-            /*pickups[6].SetActive(false);
+            //pickups[6].SetActive(false);
 
-            pickups[2].SetActive(false);*/
+            //pickups[2].SetActive(false);
 
             pickups[3].SetActive(false);
         }
         //////////////
-        if (roomKey.activeInHierarchy)  //      zoom in room 2 
+        if (roomKey.activeSelf)  //      zoom in room 2 
         {
-            //Debug.Log("active? " + roomBrewery.activeInHierarchy);
+            pickups[0].SetActive(false);
+
             pickups[4].SetActive(true);
         }
         else if (!roomBrewery.activeSelf)
         {
             pickups[4].SetActive(false);
+        }
 
+        if (roomDoor.activeSelf)
+        {
+            pickups[2].SetActive(false);
 
+            pickups[5].SetActive(true);
+        }
+        else if (!roomBrewery.activeSelf)
+        {
+            pickups[5].SetActive(false);
         }
 
 
-        /* }
-         else if (room != 4)
-         {
-             pickups[6].SetActive(false);
-
-             pickups[2].SetActive(false);
-             pickups[3].SetActive(false);
-         }*/
+        if (endScreen.activeSelf)
+        {
+            for(int i = 0; i < pickups.Count; i++)
+            {
+                pickups[i].SetActive(false);
+            }
+        }
     }
 
 
@@ -200,9 +198,10 @@ public class MechanicsManager : MonoBehaviour
 
     }
 
-  public void GotNote() {
-    pcSender.SendItem(noteItem);
-  }
+    public void GotNote()
+    {
+        pcSender.SendItem(noteItem);
+    }
 
 
 }

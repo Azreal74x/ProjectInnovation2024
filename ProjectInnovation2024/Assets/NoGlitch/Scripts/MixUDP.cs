@@ -39,12 +39,7 @@ public class MixUDP : MonoBehaviour
 
     private void Update()
     {
-        /*if (!finishedPouring)
-        {
-            return;
-        }
-        Debug.Log("finished pourning");
-        */
+        
 
         if (pcListener.currentItem == "Empty" && pcListener.accelerationSqrMagnitude > 20f)
         {
