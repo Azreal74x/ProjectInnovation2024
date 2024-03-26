@@ -3,59 +3,70 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using UnityEngine;
 
-public class MixUDP : MonoBehaviour {
+public class MixUDP : MonoBehaviour
+{
+    [SerializeField] private GameObject senderListener;
+    private PcListener pcListener; //cache component
+    private PcSender pcSender; //cache component
 
-  [SerializeField] private string sulfericAcidItem = "SulfericAcid"; //has to be name of the item in the inventory
-  [SerializeField] private string waterItem = "Water"; //has to be name of the item in the inventory
+    [SerializeField] private string sulfericAcidItem = "SulfericAcid"; //has to be name of the item in the inventory
+    [SerializeField] private string emptyItem = "Empty"; //has to be name of the item in the inventory
 
-  [SerializeField] private GameObject senderListener;
-  private PcListener pcListener; //cache component
-  private PcSender pcSender; //cache component
+    private SpriteRenderer currentSprite;
 
-  private SpriteRenderer currentSprite;
+    [SerializeField] private Sprite firstForm;
+    [SerializeField] private Sprite secondForm;
 
-  [SerializeField] private Sprite firstForm;
-  [SerializeField] private Sprite secondForm;
+    [SerializeField] private GameObject pourObj;
 
-  private bool finishedPouring = false;
-  private int swingCount = 0;
-  public bool check = false;
+    private bool finishedPouring = false;
+    private int swingCount = 0;
+    public bool check = false;
 
-  private void Start() {
-    if (senderListener != null) {
-      pcListener = senderListener.GetComponent<PcListener>();
-      pcSender = senderListener.GetComponent<PcSender>();
-    }
-    currentSprite = GetComponent<SpriteRenderer>();
-    currentSprite.sprite = firstForm;
-  }
-
-  private void Update() {
-    /*if (!finishedPouring)
+    private void Start()
     {
-        return;
-    }
-    Debug.Log("finished pourning");
-    */
-    if (pcListener.accelerationSqrMagnitude > 20f) {
-      swingCount++;
+        pourObj.SetActive(false);
 
-    }
-    if (!check && swingCount >= 20) {
-      currentSprite.sprite = secondForm;
-      check = true;
 
-      pcSender.SendUsedItem(waterItem);
-      pcSender.SendItem(sulfericAcidItem);
+        if (senderListener != null)
+        {
+            pcListener = senderListener.GetComponent<PcListener>();
+            pcSender = senderListener.GetComponent<PcSender>();
+        }
+        currentSprite = GetComponent<SpriteRenderer>();
+        currentSprite.sprite = firstForm;
     }
 
+    private void Update()
+    {
+        /*if (!finishedPouring)
+        {
+            return;
+        }
+        Debug.Log("finished pourning");
+        */
+
+        if (pcListener.currentItem == "Empty" && pcListener.accelerationSqrMagnitude > 20f)
+        {
+            swingCount++;
+
+        }
+        if (!check && swingCount >= 20)
+        {
+            currentSprite.sprite = secondForm;
+            check = true;
+
+            pcSender.SendUsedItem(emptyItem);
+            pcSender.SendItem(sulfericAcidItem);
+        }
 
 
-  }
 
-  /* public void FinishedPouring()
-   {
-       currentSprite = redBeaker;
-       finishedPouring = true;
-   }*/
+    }
+
+    /* public void FinishedPouring()
+     {
+         currentSprite = redBeaker;
+         finishedPouring = true;
+     }*/
 }

@@ -7,19 +7,18 @@ public class Inventory : MonoBehaviour {
   [SerializeField] private GameObject itemsButtons;
   [SerializeField] private GameObject itemsSprites;
   [SerializeField] private GameObject backButton;
-  [SerializeField] private GameObject note;
 
   private bool showBackButton = false;
 
   private Dictionary<string, GameObject> itemsMap = new Dictionary<string, GameObject>();
   private Dictionary<string, bool> itemsUsed = new Dictionary<string, bool>();
-  private HashSet<string> itemsUnlocked = new HashSet<string>(); // Tracking unlocked items
+  private HashSet<string> itemsUnlocked = new HashSet<string>(); // tracking unlocked items
 
-  public string currentItem = null; // Name of the currently selected item
+  public string currentItem = null; // name of the currently selected item
 
   private void Start() {
     InitializeItemsMap();
-    // No need to initialize itemsUnlocked here since it's already being handled in InitializeItemsMap
+    // no need to initialize itemsUnlocked here since it's already being handled in InitializeItemsMap
   }
 
   private void Update() {
@@ -90,7 +89,6 @@ public class Inventory : MonoBehaviour {
     }
     showBackButton = false;
     DeselectCurrentItem();
-    note.SetActive(true);
   }
 
   public void MarkItemAsUsed(string itemName) {
@@ -124,7 +122,6 @@ public class Inventory : MonoBehaviour {
     // This line ensures that the parent container's active state reflects whether any buttons are to be shown
     itemsButtons.SetActive(show);
     showBackButton = !show;
-    note.SetActive(show);
   }
 
   private void DeselectCurrentItem() {

@@ -1,11 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 
 public class MechanicsManager : MonoBehaviour
 {
+    [SerializeField] private GameObject senderListener;
+    private PcSender pcSender; //cache component
+
+    [SerializeField] private string waterItem = "Water"; //has to be name of the item in the inventory
+    [SerializeField] private string uvLightItem = "UVLight"; //has to be name of the item in the inventory
+    [SerializeField] private string noteItem = "Note"; //has to be name of the item in the inventory
 
     [SerializeField] private GameObject backgroundSwitchingController;
     private BackgroundSwitching backgroundSwitching;
@@ -42,6 +49,10 @@ public class MechanicsManager : MonoBehaviour
 
     private void Start()
     {
+        if (senderListener != null)
+        {
+            pcSender = senderListener.GetComponent<PcSender>();
+        }
 
         backgroundSwitching = backgroundSwitchingController.GetComponent<BackgroundSwitching>();
     }
@@ -177,6 +188,21 @@ public class MechanicsManager : MonoBehaviour
     {
         sulfur = true;
     }
+
+    public void GotWater()
+    {
+        pcSender.SendItem(waterItem);
+    }
+
+    public void GotUVFlashlight()
+    {
+        pcSender.SendItem(uvLightItem);
+
+    }
+
+  public void GotNote() {
+    pcSender.SendItem(noteItem);
+  }
 
 
 }
