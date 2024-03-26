@@ -4486,7 +4486,7 @@ MonoBehaviour:
   roomBrewery: {fileID: 1605840516}
   roomKey: {fileID: 1943993563}
   roomDoor: {fileID: 1223809528}
-  endScreen: {fileID: 0}
+  endScreen: {fileID: 1576649584}
   fmodEndMusic: event:/Ending music
   fmodPickupSound: event:/Pick-up object
 --- !u!4 &1358177676
@@ -7833,7 +7833,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -52.799988, y: 27.200012}
+  m_AnchoredPosition: {x: -52.80005, y: 27.200012}
   m_SizeDelta: {x: -739.84, y: -397.15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2120050370

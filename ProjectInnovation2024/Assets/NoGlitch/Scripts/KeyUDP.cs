@@ -45,7 +45,7 @@ public class KeyUDP : MonoBehaviour
         }
         else
         {
-            Debug.Log("Gyroscope not supported"); //message if not supported
+            //Debug.Log("Gyroscope not supported"); //message if not supported
         }
 
         if (senderListener != null)
@@ -74,7 +74,7 @@ public class KeyUDP : MonoBehaviour
         }
         CheckPhone();
 
-        Debug.Log("key? " + key);
+        //Debug.Log("key? " + key);
 
         if (key && pcListener.currentItem == "Key")
         {
@@ -116,7 +116,7 @@ public class KeyUDP : MonoBehaviour
     {
         if (!didBoom)
         {
-            Debug.Log("Boom");
+            //Debug.Log("Boom");
 
             doorEnd.SetActive(true);
 
