@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using FMODUnity; 
 
 public class Calibration : MonoBehaviour {
   [SerializeField] private GameObject senderListener;
@@ -14,7 +15,8 @@ public class Calibration : MonoBehaviour {
   public bool iphone = false;
   private bool choseVersion = false;
 
-  public TextMeshProUGUI debugText;
+  private FMOD.Studio.EventInstance buttonClickSound;
+  [FMODUnity.EventRef][SerializeField] private string fmodButtonClickSound;
 
   private void Start() {
     if (SystemInfo.supportsGyroscope) { //check if device has gyroscope
@@ -22,10 +24,12 @@ public class Calibration : MonoBehaviour {
     }
 
     pcListener = senderListener.GetComponent<PcListener>();
+
+    buttonClickSound = FMODUnity.RuntimeManager.CreateInstance(fmodButtonClickSound);
   }
 
   private void Update() {
-    //debugText.text = initialOrientation.ToString(); 
+    
   }
 
   public void IsIphone() {
@@ -48,5 +52,6 @@ public class Calibration : MonoBehaviour {
 
   public void TurnOnCalibration() {
     calibrationScreen.SetActive(true);
+    buttonClickSound.start();
   }
 }
