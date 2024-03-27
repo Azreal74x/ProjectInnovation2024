@@ -4493,6 +4493,7 @@ MonoBehaviour:
   roomKey: {fileID: 1943993563}
   roomDoor: {fileID: 1223809528}
   endScreen: {fileID: 1576649584}
+  calibrationObj: {fileID: 37180016}
   fmodPickupSound: event:/Pick-up object
   fmodNotePickupSound: event:/Pick-up paper
   fmodBackgroundSound: event:/Background music
@@ -5853,7 +5854,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 0.82641506, g: 0.5687524, b: 0.017151993, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5861,7 +5862,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1648906745
