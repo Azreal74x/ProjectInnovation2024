@@ -56,9 +56,10 @@ public class UVLightUDP : MonoBehaviour
             return;
         }
         CheckPhone();
-        if (gotFlashlight && pcListener.currentItem == "UVLight")
+        if (pcListener.currentItem == "UVLight")
         {
             uvLightUse.start();
+
             GyroCheck();
         }
         else
@@ -94,7 +95,6 @@ public class UVLightUDP : MonoBehaviour
 
     private void ShowText()
     {
-
 
         currentSprite.sprite = secretText;
     }

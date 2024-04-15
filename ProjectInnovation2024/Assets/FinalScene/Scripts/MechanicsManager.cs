@@ -13,6 +13,9 @@ public class MechanicsManager : MonoBehaviour
     [SerializeField] private GameObject senderListener;
     private PcSender pcSender; //cache component
 
+    [SerializeField] private GameObject backButton;
+
+    [SerializeField] private string keyItem = "Key"; //has to be name of the item in the inventory
     [SerializeField] private string waterItem = "Water"; //has to be name of the item in the inventory
     [SerializeField] private string uvLightItem = "UVLight"; //has to be name of the item in the inventory
     [SerializeField] private string noteItem = "Note"; //has to be name of the item in the inventory
@@ -69,8 +72,6 @@ public class MechanicsManager : MonoBehaviour
 
     private void Update()
     {
-
-
         //Debug.Log(currentScreen);
 
         //Debug.Log("hammer? " + pickups[1].GetComponentInChildren<HammerUDP>().hammer);
@@ -81,38 +82,10 @@ public class MechanicsManager : MonoBehaviour
     private void SwitchMechanics(int room)
     {
 
-        /*if (pickups[0].GetComponentInChildren<UVLightUDP>().discovered)
-        {
-            interactedWithUV = true;
-        }
-
-
-
-        else if (room != 0)
-        {
-            pickups[0].SetActive(false);
-        }
-
-        if (room != 0)
-        {
-            pickups[0].SetActive(false);
-        }
-
-        ////////////
-        if (room == 1)  
-        {
-           */
         if (room == 0)
         {
             pickups[0].SetActive(true); // 
-            /* if (pickups[3].GetComponent<MixUDP>().check) //activate throw
-             {
-                 pickups[4].SetActive(true);
-             }
-             if (pickups[4].GetComponentInChildren<ThrowUDP>().explosion) // after thrown activate door
-             {
-                 pickups[5].SetActive(true);
-             }*/
+           
         }
         else if (room != 0)
         {
@@ -138,7 +111,6 @@ public class MechanicsManager : MonoBehaviour
         else if (room != 2)
         {
             pickups[2].SetActive(false);
-            //pickups[3].SetActive(false);
         }
 
         ////////////
@@ -153,12 +125,15 @@ public class MechanicsManager : MonoBehaviour
             {
                 potionToPour.SetActive(true); // show the vessel wuth mix in it
             }
+
+            if (gameObject.GetComponentInChildren<MixUDP>().enabled == true)
+            {
+                potionToPour.SetActive(false);
+            }
         }
         else if (!roomBrewery.activeSelf)
         {
-            //pickups[6].SetActive(false);
 
-            //pickups[2].SetActive(false);
 
             pickups[3].SetActive(false);
         }
@@ -168,6 +143,8 @@ public class MechanicsManager : MonoBehaviour
             pickups[0].SetActive(false);
 
             pickups[4].SetActive(true);
+
+
         }
         else if (!roomBrewery.activeSelf)
         {
@@ -188,16 +165,19 @@ public class MechanicsManager : MonoBehaviour
 
         if (endScreen.activeSelf || calibrationObj.activeSelf)
         {
-            
-            
 
             for (int i = 0; i < pickups.Count; i++)
             {
                 pickups[i].SetActive(false);
             }
+
+        }
+        else if (endScreen.activeSelf)
+        {
+            backButton.SetActive(false);
         }
 
-        
+
     }
 
     public void InteractedWithUV()
@@ -235,6 +215,14 @@ public class MechanicsManager : MonoBehaviour
 
     public void GotKey()
     {
+        pcSender.SendItem(keyItem);
         keyGameObj.SetActive(true);
     }
+
+    public void HammerPickupSound()
+    {
+        pickupSound.start();
+    }
 }
+
+

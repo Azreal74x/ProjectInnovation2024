@@ -50,7 +50,7 @@ public class HammerUDP : MonoBehaviour {
       hammerSound.start();
     }
 
-    if (!check && swingCount >= 7) {
+    if (!check && swingCount >= 4) {
       //this.gameObject.GetComponent<SpriteRenderer>().sprite = brokenGlass;
 
       brokenGlass.SetActive(true);

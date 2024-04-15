@@ -14,7 +14,7 @@ public class KeyUDP : MonoBehaviour
     private PcListener pcListener; //cache component
     private PcSender pcSender; //cache component
 
-    [SerializeField] private string keyItem = "Key"; //has to be name of the item in the inventory
+    [SerializeField] private string keyItem = "Key";
 
     [SerializeField] private GameObject calibrationController;
     private Calibration calibration;
@@ -41,9 +41,6 @@ public class KeyUDP : MonoBehaviour
 
     private FMOD.Studio.EventInstance pickupSound;
     [FMODUnity.EventRef][SerializeField] private string fmodPickupSound;
-
-    private FMOD.Studio.EventInstance endMusic;
-    [FMODUnity.EventRef][SerializeField] private string fmodEndMusic;
 
     private FMOD.Studio.EventInstance openMetalDoor;
     [FMODUnity.EventRef][SerializeField] private string fmodOpenMetalDoor;
@@ -78,7 +75,6 @@ public class KeyUDP : MonoBehaviour
         }
 
         pickupSound = FMODUnity.RuntimeManager.CreateInstance(fmodPickupSound);
-        endMusic = FMODUnity.RuntimeManager.CreateInstance(fmodEndMusic);
         openMetalDoor = FMODUnity.RuntimeManager.CreateInstance(fmodOpenMetalDoor);
 
     }
@@ -94,7 +90,7 @@ public class KeyUDP : MonoBehaviour
 
         //Debug.Log("key? " + key);
 
-        if (key && pcListener.currentItem == "Key")
+        if (pcListener.currentItem == "Key")
         {
             GyroCheck();
         }
@@ -146,7 +142,6 @@ public class KeyUDP : MonoBehaviour
             openMetalDoor.start();
         }
         didBoom = true;
-
     }
 
 
@@ -154,23 +149,7 @@ public class KeyUDP : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
 
-        endComic.SetActive(true);
-        endMusic.start();   //THESE WILL PLAY AND LOOP EVERY FRAME. WHEN YOU HAVE A WAY TO DETECT THE GAME HAS STARTED (when we play the normal music) BE SURE TO PUTT IN A
-
-        Debug.Log("waited 2 secs");
-        StartCoroutine(WaitMoreSec());
-
-    }
-
-    private IEnumerator WaitMoreSec()
-    {
-        yield return new WaitForSeconds(5);
-
-        Debug.Log("waited 5 sec");
-
-        endMusic.release();
-
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
 
@@ -190,14 +169,6 @@ public class KeyUDP : MonoBehaviour
             minTurnAngleZ = 170f;
             maxTurnAngleZ = 180f;
         }
-    }
-
-    public void KeyPicked()
-    {
-        key = true;
-        pcSender.SendItem(keyItem);
-        pickupSound.start();
-
     }
 
 }

@@ -59,14 +59,14 @@ public class PcListener : MonoBehaviour {
       string inString = Encoding.UTF8.GetString(inBytes);
 
       if (inString.StartsWith("PHONE_IP:")) {
-        Debug.Log($"Received IP: {inString.Substring(9)} from {endPoint}");
+        //Debug.Log($"Received IP: {inString.Substring(9)} from {endPoint}");
         string receivedIP = inString.Substring(9).Trim();
         if (receivedIP == currentIP) {
           ipv4.text = " ";
           setIP = true;
         }
         else {
-          Debug.Log("Try again, receivedIP is: " + receivedIP + " but the current IP is: " + currentIP);
+          //Debug.Log("Try again, receivedIP is: " + receivedIP + " but the current IP is: " + currentIP);
           //ScreenIP.SetActive(true);
         }
       }
@@ -82,7 +82,7 @@ public class PcListener : MonoBehaviour {
       }
       else if (inString.StartsWith("CURRENT ITEM:")) {
         currentItem = inString.Substring(13);
-        Debug.Log($"Received current item: {currentItem} from {endPoint}");
+        //Debug.Log($"Received current item: {currentItem} from {endPoint}");
       }
     }
   }

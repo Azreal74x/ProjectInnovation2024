@@ -41,6 +41,7 @@ public class MixUDP : MonoBehaviour
         currentSprite.sprite = firstForm;
 
         shakeSound = FMODUnity.RuntimeManager.CreateInstance(fmodShakeSound);
+        
     }
 
     private void Update()
@@ -50,13 +51,13 @@ public class MixUDP : MonoBehaviour
         if (pcListener.currentItem == "Empty" && pcListener.accelerationSqrMagnitude > 20f)
         {
             swingCount++;
-            shakeSound.start();
 
         }
         if (!check && swingCount >= 20)
         {
             currentSprite.sprite = secondForm;
             check = true;
+            shakeSound.start();
 
             pcSender.SendUsedItem(emptyItem);
             pcSender.SendItem(sulfericAcidItem);
