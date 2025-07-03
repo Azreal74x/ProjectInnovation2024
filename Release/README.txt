@@ -40,5 +40,5 @@ This was co-created with:
 -Ania Cojocăreanu (designer)
 
 For more information, contact:
-https://www.emilymurad.com
+www.emilymurad.com
 mariacosneanu.dcms.site
